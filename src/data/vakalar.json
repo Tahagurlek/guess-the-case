@@ -1,0 +1,118 @@
+[
+  {
+    "date": "2025-07-15",
+    "demographics": { "age": 43, "sex": { "tr": "Kadın", "en": "Female" } },
+    "chief_complaint": { "tr": "Bulantı, kusma", "en": "Nausea, vomiting" },
+    "vitals": {
+      "tr": { "Ateş": "36.6°C", "Nabız": "85/dk", "TA": "129/84 mmHg", "SpO2": "99%", "Solunum": "19/dk" },
+      "en": { "Temp": "36.6°C", "Pulse": "85", "BP": "129/84 mmHg", "SpO2": "99%", "RR": "19/min" }
+    },
+    "history": {
+      "tr": "Tip 1 DM ve Graves tanılı hasta mide bulantısı, ağıza acı su gelmesi şikayetiyle başvurdu. 1 defa kusmuş.",
+      "en": "A patient with type 1 DM and Graves presented with nausea and bitter taste in the mouth. Vomited once."
+    },
+    "background": {
+      "tr": [
+        "Özgeçmiş: Graves (total tiroidektomi)",
+        "İlaçlar: Levotiroksin 150mg 1x1, insülin glarjin 8 IU, insülin aspart 3x2 IU",
+        "Alışkanlıklar: Sigara yok, alkol yok",
+        "Aile öyküsü: Tip 2 DM var"
+      ],
+      "en": [
+        "Past medical history: Graves (total thyroidectomy)",
+        "Medications: levothyroxine 150mg 1x1, insulin glargine 8 IU, insulin aspart 3x2 IU",
+        "Habits: No smoking or alcohol",
+        "Family history: Type 2 DM"
+      ]
+    },
+    "physical_exam": {
+      "tr": "Genel durumu orta, defans ve rebound yok, hassasiyet yok.",
+      "en": "Moderately ill, no defense or rebound, no tenderness."
+    },
+    "labs": { "Glukoz": 258, "Na": 136, "K": 4.6, "Kreatinin": 0.86 },
+    "blood_gas": { "pH": 7.2, "HCO3": 13.5, "Anion gap": 18 },
+    "urinalysis": { "Keton": "3+", "Glukoz": "3+" },
+    "hemogram": { "Nötrofilik lökositoz": true },
+    "ekg": { "tr": "Normal sinüs ritmi", "en": "Normal sinus rhythm" },
+    "imaging": { "tr": "-", "en": "-" },
+    "course": {
+      "tr": "Tedaviye başlandıktan sonra kan şekeri düşüşe geçti, metabolik asidoz geriledi.",
+      "en": "After treatment, blood glucose started to decrease and metabolic acidosis improved."
+    },
+    "correct_diagnosis": { "tr": "Diyabetik ketoasidoz", "en": "Diabetic ketoacidosis" },
+    "explanation": {
+      "tr": "Tip 1 DM hastasında anion gapli metabolik asidoz, ketonüri ve hiperglisemi ile DKA tanısı konur.",
+      "en": "In type 1 DM patient, anion gap metabolic acidosis, ketonuria, and hyperglycemia confirm DKA diagnosis."
+    },
+    "references": [
+      { "tr": "Harrisons Internal Medicine, 21. baskı, DKA bölümü", "en": "Harrison's Internal Medicine, 21st edition, DKA chapter" }
+    ]
+  },
+{
+  "date": "2025-07-14",
+  "demographics": { "age": 22, "sex": { "tr": "Erkek", "en": "Male" } },
+  "chief_complaint": { 
+    "tr": "Bulantı, kusma, ciltte sararma, karın ağrısı", 
+    "en": "Nausea, vomiting, jaundice, abdominal pain" 
+  },
+  "vitals": {
+    "tr": { "Ateş": "37.8°C", "TA": "97/55 mmHg", "Nabız": "79/dk", "SpO2": "95%", "Solunum": "14/dk" },
+    "en": { "Temp": "37.8°C", "BP": "97/55 mmHg", "Pulse": "79", "SpO2": "95%", "RR": "14/min" }
+  },
+  "history": {
+    "tr": "20 gün önce sırtta başlayan kaşıntıya, 5 gün önce bulantı, kusma, ciltte sararma ve karın ağrısı eklenmiş.",
+    "en": "Itching on the back started 20 days ago; 5 days ago, nausea, vomiting, jaundice, and abdominal pain were added."
+  },
+  "background": {
+    "tr": [
+      "Alışkanlıklar: 5 paket/yıl sigara, alkol kullanımı var",
+      "İlaçlar: ibuprofen 1x1, parasetamol 500mg 1x1, amoksisilin klavulonat 1000mg 2x1"
+    ],
+    "en": [
+      "Habits: 5 pack-years smoking, alcohol use present",
+      "Medications: ibuprofen 1x1, paracetamol 500mg 1x1, amoxicillin-clavulanate 1000mg 2x1"
+    ]
+  },
+  "physical_exam": {
+    "tr": "Sklera, cilt ve orofarenks ikterik. Palpasyonla epigastrik hassasiyet mevcut. Splenomegali yok, hepatomegali yok, defans ve rebound yok.",
+    "en": "Sclera, skin, and oropharynx are icteric. Epigastric tenderness on palpation. No splenomegaly, no hepatomegaly, no defense or rebound."
+  },
+  "labs": { 
+    "Hgb": 15.5, 
+    "Total Bilirubin": 14.8, 
+    "Direct Bilirubin": 13.02, 
+    "Indirect Bilirubin": 1.7,
+    "ALT": 1571,
+    "AST": 977,
+    "Prokalsitonin": 0.99,
+    "Kreatinin": 0.69,
+    "BUN": 3.1,
+    "INR": 1.66,
+    "aPTT": 38,
+    "PT": 19.5,
+    "Anti-HBs": "+",
+    "Fibrinojen": 170
+  },
+  "blood_gas": {},
+  "hemogram": {},
+  "urinalysis": {},
+  "ekg": { "tr": "Normal sinüs ritmi", "en": "Normal sinus rhythm" },
+  "imaging": { 
+    "tr": "USG: Safra kesesi duvar kalınlığı artmış izlendi.", 
+    "en": "Ultrasound: Gallbladder wall thickness increased."
+  },
+  "course": {
+    "tr": "Ön planda akut hepatit düşünülen hastaya 1000cc izotonik başlandı.",
+    "en": "Patient, initially considered to have acute hepatitis, was started on 1000cc isotonic saline."
+  },
+  "correct_diagnosis": { "tr": "Akut kolesistit", "en": "Acute cholecystitis" },
+  "explanation": {
+    "tr": "Hastada karaciğer enzimlerinde ciddi yükseklik, belirgin ikter, safra kesesi duvar kalınlığı ve epigastrik hassasiyet ile akut kolesistit ön planda düşünülür.",
+    "en": "Severe elevation of liver enzymes, marked jaundice, gallbladder wall thickening, and epigastric tenderness suggest acute cholecystitis."
+  },
+  "references": [
+    { "tr": "Harrisons Internal Medicine, 21. baskı, Akut Kolesistit", "en": "Harrison's Internal Medicine, 21st edition, Acute Cholecystitis" }
+  ]
+}
+
+]

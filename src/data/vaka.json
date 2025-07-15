@@ -1,0 +1,19 @@
+{
+  "date": "2025-07-15",
+  "demographics": {
+    "age": 25,
+    "sex": "Erkek"
+  },
+  "chief_complaint": "Karın ağrısı",
+  "history": "2 gündür süren, şiddeti artan karın ağrısı, bulantı, kusma.",
+  "physical_exam": "Sağ alt kadranda hassasiyet, rebound, defans.",
+  "labs": {
+    "WBC": 18000,
+    "CRP": 30,
+    "ALT": 22
+  },
+  "imaging": "USG'de sağ alt kadranda kalınlaşmış apendiks.",
+  "correct_diagnosis": "Appendisit",
+  "explanation": "Klasik apandisit bulguları. Özellikle sağ alt kadran hassasiyeti, yüksek lökosit ve USG bulguları.",
+  "references": ["Sabiston Textbook of Surgery, 21. Baskı, Bölüm 51"]
+}
