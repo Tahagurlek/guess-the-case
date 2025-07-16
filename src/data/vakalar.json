@@ -1,6 +1,6 @@
 [
   {
-    "date": "2025-07-15",
+    "date": "2025-07-12",
     "demographics": { "age": 43, "sex": { "tr": "Kadın", "en": "Female" } },
     "chief_complaint": { "tr": "Bulantı, kusma", "en": "Nausea, vomiting" },
     "vitals": {
@@ -49,7 +49,7 @@
     ]
   },
 {
-  "date": "2025-07-14",
+  "date": "2025-07-13",
   "demographics": { "age": 22, "sex": { "tr": "Erkek", "en": "Male" } },
   "chief_complaint": { 
     "tr": "Bulantı, kusma, ciltte sararma, karın ağrısı", 
@@ -113,6 +113,135 @@
   "references": [
     { "tr": "Harrisons Internal Medicine, 21. baskı, Akut Kolesistit", "en": "Harrison's Internal Medicine, 21st edition, Acute Cholecystitis" }
   ]
+},
+{
+  "date": "2025-07-14",
+  "demographics": { "age": 57, "sex": { "tr": "Erkek", "en": "Male" } },
+  "chief_complaint": { "tr": "Nefes darlığı", "en": "Shortness of breath" },
+  "vitals": {
+    "tr": { "Ateş": "36.2°C", "Nabız": "130/dk", "TA": "121/81 mmHg", "SpO2": "96%", "Solunum": "16/dk" },
+    "en": { "Temp": "36.2°C", "Pulse": "130", "BP": "121/81 mmHg", "SpO2": "96%", "RR": "16/min" }
+  },
+  "history": {
+    "tr": "3 saat önce başlayan nefes darlığı ve göğüs yan duvarında batıcı ağrı şikayetiyle başvurdu. Bir hafta önce merdivenden düşme sonrası sol ayakta kırık oluşmuş, kafa travması öyküsü yok. Son 4 haftadır immobil durumda yatmakta.",
+    "en": "Presented with shortness of breath and stabbing pain in the lateral chest wall that began 3 hours ago. One week ago, fell down stairs, resulting in a fracture in the left foot, without head trauma. He has been immobilized in bed for the last 4 weeks."
+  },
+  "background": {
+    "tr": [
+      "Alışkanlıklar: 16 paket/yıl sigara (30 yıldır içmiyor, ex-smoker)",
+      "Alkol: Sosyal içici"
+    ],
+    "en": [
+      "Habits: 16 pack-years of smoking (quit 30 years ago, ex-smoker)",
+      "Alcohol: Social drinker"
+    ]
+  },
+  "physical_exam": {
+    "tr": "Bilinç açık, oryante. Sol pretibial ödem (+), diğer ekstremitelerde ödem yok. Solunum sesleri bilateral normal, kalp sesleri ritmik ve normal, batın yumuşak, defans ve rebound yok.",
+    "en": "Conscious and oriented. Left pretibial edema (+), no edema in other extremities. Bilateral breath sounds are normal. Heart sounds are rhythmic and normal. Abdomen is soft, without defense or rebound."
+  },
+  "labs": { 
+    "WBC": 11.54,
+    "Hgb": 12.5,
+    "Plt": 260000,
+    "Lymph#": 14.5,
+    "CRP": 55.6,
+    "Glucose": 120,
+    "Procalcitonin": 0.59,
+    "Pro-BNP": 80,
+    "D-dimer": 2460,
+    "Fibrinogen": 543
+  },
+  "blood_gas": { "pH": 7.44, "HCO3": 25.6, "pCO2": 37 },
+  "hemogram": {},
+  "urinalysis": {},
+  "ekg": { "tr": "Sinüs ritmi, normal", "en": "Normal sinus rhythm" },
+  "imaging": { 
+    "tr": "Toraks BT anjiyografi: Sağ ana pulmoner arterde emboli ile uyumlu perfüzyon defekti.",
+    "en": "Chest CT angiography: Perfusion defect in the right main pulmonary artery consistent with embolism."
+  },
+  "course": {
+    "tr": "Pulmoner emboli tanısıyla antikoagülan tedavi başlandı.",
+    "en": "Anticoagulant therapy was initiated for the diagnosis of pulmonary embolism."
+  },
+  "correct_diagnosis": { "tr": "Pulmoner emboli", "en": "Pulmonary embolism" },
+  "explanation": {
+    "tr": "Uzun süreli immobilite, yüksek D-dimer, ani başlayan nefes darlığı ve BT'de emboli bulguları pulmoner emboli tanısını desteklemektedir.",
+    "en": "Prolonged immobility, elevated D-dimer, sudden onset shortness of breath, and embolism findings on CT support the diagnosis of pulmonary embolism."
+  },
+  "references": [
+    { "tr": "Harrisons Internal Medicine, 21. baskı, Pulmoner Emboli bölümü", "en": "Harrison's Internal Medicine, 21st edition, Pulmonary Embolism chapter" }
+  ]
+},
+{
+  "date": "2025-07-16",
+  "demographics": { "age": 58, "sex": { "tr": "Kadın", "en": "Female" } },
+  "chief_complaint": { "tr": "Halsizlik, bulantı", "en": "Fatigue, nausea" },
+  "vitals": {
+    "tr": { "Ateş": "36.5°C", "Nabız": "100/dk", "TA": "137/84 mmHg", "SpO2": "97%", "Solunum": "25/dk" },
+    "en": { "Temp": "36.5°C", "Pulse": "100", "BP": "137/84 mmHg", "SpO2": "97%", "RR": "25/min" }
+  },
+  "history": {
+    "tr": "10 yıldır tip 2 DM tanılı. Son 1 aydır halsizlik ve iştahsızlık şikayetlerine, 3 gündür bulantı ve yemek sonrası kusma eklenmiş. Son 2 yılda 95 kg'dan 50 kg'a düşerek yaklaşık 45 kg kilo kaybı olmuş.",
+    "en": "Has a 10-year history of type 2 diabetes mellitus. Over the last month, developed fatigue and loss of appetite, with new-onset nausea and postprandial vomiting for 3 days. She lost about 45 kg over the past 2 years, dropping from 95 kg to 50 kg."
+  },
+  "background": {
+    "tr": [
+      "Özgeçmiş: Kolesistektomi (2012)",
+      "Alışkanlıklar: 30 paket/yıl sigara (halen içiyor), alkol yok",
+      "Kullandığı ilaçlar: Asetilsalisilik asit 100 mg 1x1, empagliflozin 25 mg 1x1, pantoprazol 40 mg 1x1, insülin glarjin 20 IU 1x1, insülin aspart 8 IU 3x1",
+      "Soygeçmiş: Özellik yok"
+    ],
+    "en": [
+      "Past medical history: Cholecystectomy (2012)",
+      "Habits: 30 pack-years smoking (current smoker), no alcohol",
+      "Medications: acetylsalicylic acid 100 mg 1x1, empagliflozin 25 mg 1x1, pantoprazole 40 mg 1x1, insulin glargine 20 IU 1x1, insulin aspart 8 IU 3x1",
+      "Family history: Not significant"
+    ]
+  },
+  "physical_exam": {
+    "tr": "Genel durumu orta, bilinç açık, oryante ve koopere. Ateş: 36.5°C, nabız: 100/dk, tansiyon: 137/84 mmHg, SpO2: %97, solunum sayısı: 25/dk. Suprapubik hassasiyet mevcut. Diğer sistem muayeneleri doğal sınırlarda.",
+    "en": "Moderate general condition, conscious, oriented and cooperative. Temp: 36.5°C, pulse: 100/min, BP: 137/84 mmHg, SpO2: 97%, respiratory rate: 25/min. Suprapubic tenderness present. Other system examinations were within normal limits."
+  },
+  "labs": { 
+    "Venous pH": 7.1,
+    "HCO3": 7.7,
+    "pCO2": 18.6,
+    "Cl": 92,
+    "K": 6.9,
+    "Mg": 1.12,
+    "Phosphorus": 5.4,
+    "CRP": 208,
+    "Glucose": 461,
+    "BUN": 27,
+    "Urea": 58,
+    "Creatinine": 1.18,
+    "Na": 130,
+    "Hgb": 9.2,
+    "WBC": 25590,
+    "MCV": 79,
+    "Plt": 203000,
+    "Neut#": 2370
+  },
+  "blood_gas": { "pH": 7.1, "HCO3": 7.7, "pCO2": 18.6, "Cl": 95, "K": 6.9 },
+  "hemogram": {},
+  "urinalysis": { "Keton": "3+", "Glukoz": "3+", "Eritrosit": "10", "Lökosit": "27" },
+  "ekg": { "tr": "Sinüs ritminde, düzenli, taşikardik, iskemi bulgusu yok", "en": "Sinus rhythm, regular, tachycardic, no ischemic changes" },
+  "imaging": { "tr": "-", "en": "-" },
+  "course": {
+    "tr": "Hasta diyabetik ketoasidoz tanısıyla izleme alındı ve uygun tedavi başlandı.",
+    "en": "The patient was diagnosed with diabetic ketoacidosis and appropriate treatment was initiated."
+  },
+  "correct_diagnosis": { "tr": "Diyabetik ketoasidoz", "en": "Diabetic ketoacidosis" },
+  "explanation": {
+    "tr": "Hiperglisemi, asidoz (pH: 7.1, HCO3: 7.7), ketonüri ve tip 2 diyabet öyküsü ile diyabetik ketoasidoz tanısı desteklenmektedir.",
+    "en": "Hyperglycemia, acidosis (pH: 7.1, HCO3: 7.7), ketonuria, and history of type 2 diabetes support the diagnosis of diabetic ketoacidosis."
+  },
+  "references": [
+    { "tr": "Harrisons Internal Medicine, 21. baskı, DKA bölümü", "en": "Harrison's Internal Medicine, 21st edition, DKA chapter" }
+  ]
 }
+
+
 
 ]

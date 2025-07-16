@@ -1,36 +1,36 @@
-import React, { useState, useMemo } from "react";
-import {
-  Autocomplete,
-  TextField,
-  Button,
-  Card,
-  CardContent,
-  Typography,
-  Alert,
-  Box
-} from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import React, { useState, useMemo, useEffect } from "react";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { Box, Card, CardContent, Typography, Button } from "@mui/material";
 import vakalar from "./data/vakalar.json";
 import tanilar from "./data/tanilar.json";
-import Confetti from "react-confetti";
-import { motion } from "framer-motion";
-
+import HeaderBar from "./components/HeaderBar";
 import DemographicsCard from "./components/DemographicsCard";
 import InfoStepCard from "./components/InfoStepCard";
 import CaseArchiveDialog from "./components/CaseArchiveDialog";
-
-// MUI tema ayarı
-const theme = createTheme({
+import StatsDialog from "./components/StatsDialog";
+import ProfileDialog from "./components/ProfileDialog";
+import DailyLeaderboardDialog from "./components/DailyLeaderboardDialog";
+import HelpDialog from "./components/HelpDialog";
+import Confetti from "react-confetti";
+import { motion } from "framer-motion";
+import { Autocomplete, TextField } from "@mui/material";
+// Tema
+const themeLight = createTheme({
   palette: {
+    mode: "light",
     primary: { main: "#1976d2" },
-    secondary: { main: "#ffd600" },
-    background: { default: "#e3f2fd" }
-  },
-  shape: { borderRadius: 16 },
-  typography: { fontFamily: "Montserrat, Roboto, Arial" }
+    secondary: { main: "#ffd600" }
+  }
+});
+const themeDark = createTheme({
+  palette: {
+    mode: "dark",
+    primary: { main: "#1976d2" },
+    secondary: { main: "#ffd600" }
+  }
 });
 
-// Tarih stringi oluşturur: YYYY-MM-DD
+// Tarih stringi
 function getTodayStr() {
   const today = new Date();
   const tzOff = today.getTimezoneOffset() * 60000;
@@ -38,6 +38,7 @@ function getTodayStr() {
   return localISO;
 }
 
+// Günün vakasını veya en yakını döndür
 function getTodayOrClosestCase() {
   const todayStr = getTodayStr();
   const sortedVakalar = [...vakalar].sort((a, b) => a.date.localeCompare(b.date));
@@ -49,6 +50,7 @@ function getTodayOrClosestCase() {
   return selected;
 }
 
+// LocalStorage yardımcıları
 function getSolvedCases() {
   return JSON.parse(localStorage.getItem("solvedCases") || "{}");
 }
@@ -57,25 +59,68 @@ function setSolvedCase(date, result) {
   solved[date] = result;
   localStorage.setItem("solvedCases", JSON.stringify(solved));
 }
+function getStats() {
+  const solvedCases = getSolvedCases();
+  const solvedDates = Object.keys(solvedCases).sort();
+  const total = solvedDates.length;
+  const correct = solvedDates.filter(d => solvedCases[d].success).length;
+  const incorrect = total - correct;
+  const totalScore = solvedDates.reduce((sum, d) => sum + (solvedCases[d].success ? parseInt(solvedCases[d].message.match(/\d+/)?.[0] || 0) : 0), 0);
+  const avgScore = correct > 0 ? Math.round(totalScore / correct) : 0;
+  let lastDate = solvedDates.length ? solvedDates[solvedDates.length - 1] : null;
+  let lastResult = lastDate ? solvedCases[lastDate] : null;
+  // Streak hesabı
+  let streak = 0;
+  let streakDates = [];
+  const todayStr = getTodayStr();
+  for (let i = solvedDates.length - 1; i >= 0; i--) {
+    const d = solvedDates[i];
+    if (!solvedCases[d].success) continue;
+    if (streak === 0) {
+      streak = 1;
+      streakDates.push(d);
+    } else {
+      const prev = streakDates[streakDates.length - 1];
+      const diff = (new Date(prev) - new Date(d)) / (1000 * 60 * 60 * 24);
+      if (diff === 1) {
+        streak++;
+        streakDates.push(d);
+      } else {
+        break;
+      }
+    }
+  }
+  if (!solvedCases[todayStr]?.success && streakDates[0] !== todayStr) {
+    streak = 0;
+  }
+  return { total, correct, incorrect, avgScore, streak, lastResult, lastDate };
+}
 
-function App() {
+const BASE_SCORE = 100;
+const INFO_PENALTY = 20;
+const WRONG_PENALTY = 10;
+const MAX_TRIES = 5;
+
+export default function App() {
   const [lang, setLang] = useState("tr");
+  const [darkMode, setDarkMode] = useState(false);
   const [archiveOpen, setArchiveOpen] = useState(false);
+  const [statsOpen, setStatsOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [leaderboardOpen, setLeaderboardOpen] = useState(false);
+  const [helpOpen, setHelpOpen] = useState(false);
+
+  // Vaka seçimi ve state
   const todayVaka = useMemo(getTodayOrClosestCase, []);
   const [selectedVaka, setSelectedVaka] = useState(todayVaka);
-
-  // infoStep, skor, selectedTanı; sadece vaka değişince baştan başlar
   const [infoStep, setInfoStep] = useState(0);
   const [selectedTanı, setSelectedTanı] = useState("");
   const [result, setResult] = useState(null);
+  const [score, setScore] = useState(BASE_SCORE);
+  const [remainingTries, setRemainingTries] = useState(MAX_TRIES);
 
-  const BASE_SCORE = 100;
-  const INFO_PENALTY = 20;
-  const WRONG_PENALTY = 10;
-
+  // Vitals ve infoList
   const vitals = useMemo(() => selectedVaka.vitals && selectedVaka.vitals[lang], [selectedVaka, lang]);
-
-  // Bilgi blokları
   const infoList = [
     {
       label: { tr: "Hikaye", en: "History" },
@@ -101,11 +146,10 @@ function App() {
       label: { tr: "Laboratuvar", en: "Laboratory" },
       value: (
         <Box>
-          {/* Biyokimya */}
           {selectedVaka.labs && Object.keys(selectedVaka.labs).length > 0 && (
             <>
-              <Box sx={{ fontWeight: 600, color: "#263238", mt: 1 }}>
-                {lang === "tr" ? "Biyokimya:" : "Biochemistry:"}
+              <Box sx={{ fontWeight: 600, color: theme => theme.palette.text.primary, mt: 1 }}>
+              {lang === "tr" ? "Biyokimya:" : "Biochemistry:"}
               </Box>
               <ul style={{ margin: "4px 0 8px 18px" }}>
                 {Object.entries(selectedVaka.labs).map(([k, v], i) => (
@@ -114,10 +158,9 @@ function App() {
               </ul>
             </>
           )}
-          {/* Kan Gazı */}
           {selectedVaka.blood_gas && Object.keys(selectedVaka.blood_gas).length > 0 && (
             <>
-              <Box sx={{ fontWeight: 600, color: "#263238" }}>
+              <Box sx={{ fontWeight: 600, color: theme => theme.palette.text.primary }}>
                 {lang === "tr" ? "Kan Gazı:" : "Blood Gas:"}
               </Box>
               <ul style={{ margin: "4px 0 8px 18px" }}>
@@ -127,10 +170,9 @@ function App() {
               </ul>
             </>
           )}
-          {/* Hemogram */}
           {selectedVaka.hemogram && Object.keys(selectedVaka.hemogram).length > 0 && (
             <>
-              <Box sx={{ fontWeight: 600, color: "#263238" }}>
+              <Box sx={{ fontWeight: 600, color: theme => theme.palette.text.primary }}>
                 Hemogram:
               </Box>
               <ul style={{ margin: "4px 0 8px 18px" }}>
@@ -140,10 +182,9 @@ function App() {
               </ul>
             </>
           )}
-          {/* İdrar */}
           {selectedVaka.urinalysis && Object.keys(selectedVaka.urinalysis).length > 0 && (
             <>
-              <Box sx={{ fontWeight: 600, color: "#263238" }}>
+              <Box sx={{ fontWeight: 600, color: theme => theme.palette.text.primary }}>
                 {lang === "tr" ? "İdrar:" : "Urinalysis:"}
               </Box>
               <ul style={{ margin: "4px 0 8px 18px" }}>
@@ -168,34 +209,32 @@ function App() {
       : [])
   ];
 
-  // Skor mantığı
-  const [score, setScore] = useState(BASE_SCORE);
-
-  // Sadece VAKA değişince infoStep ve skor başa dönüyor. Dil değişiminde aynen kalıyor!
-  React.useEffect(() => {
+  // App içi efektler
+  useEffect(() => {
     const solved = getSolvedCases();
     if (solved[selectedVaka.date]) {
       setResult(solved[selectedVaka.date]);
       setInfoStep(infoList.length);
       setScore(BASE_SCORE - infoList.length * INFO_PENALTY);
+      setRemainingTries(0);
     } else {
       setResult(null);
       setInfoStep(0);
       setScore(BASE_SCORE);
+      setRemainingTries(MAX_TRIES);
     }
     setSelectedTanı("");
     // eslint-disable-next-line
   }, [selectedVaka]);
 
-  React.useEffect(() => {
-    setScore(BASE_SCORE - infoStep * INFO_PENALTY);
+  useEffect(() => {
+    setScore(BASE_SCORE - infoStep * INFO_PENALTY - (MAX_TRIES - remainingTries) * WRONG_PENALTY);
     // eslint-disable-next-line
-  }, [infoStep]);
+  }, [infoStep, remainingTries]);
 
   const handleShowMore = () => {
     if (infoStep < infoList.length) {
       setInfoStep(infoStep + 1);
-      setScore(BASE_SCORE - (infoStep + 1) * INFO_PENALTY);
     }
   };
 
@@ -210,77 +249,104 @@ function App() {
     if (selectedTanı === selectedVaka.correct_diagnosis[lang]) {
       newResult = {
         success: true,
+        justSolved: true,
         message:
           (lang === "tr"
             ? "Tebrikler! Doğru tanı."
             : "Congratulations! Correct diagnosis.") +
-          ` ${lang === "tr" ? "Puanınız" : "Your score"}: ${score}`
+          ` ${lang === "tr" ? "Puanınız" : "Your score"}: ${score}`,
+        tries: MAX_TRIES - remainingTries + 1
       };
+      setResult(newResult);
+      setSolvedCase(selectedVaka.date, { ...newResult, justSolved: false });
       setInfoStep(infoList.length);
+      setRemainingTries(0);
+      setStatsOpen(true);
+
+      // Günlük leaderboard kaydet
+      const todayStr = selectedVaka.date;
+      const nickname = localStorage.getItem("nickname") || "Anonim";
+      const newEntry = { nickname, score, date: todayStr, time: Date.now() };
+      let board = JSON.parse(localStorage.getItem(`leaderboard_daily_${todayStr}`) || "[]");
+      const alreadyIdx = board.findIndex(e => e.nickname === nickname);
+      if (alreadyIdx >= 0) {
+        if (board[alreadyIdx].score < score) {
+          board[alreadyIdx] = newEntry;
+        }
+      } else {
+        board.push(newEntry);
+      }
+      board.sort((a, b) => b.score - a.score || a.time - b.time);
+      localStorage.setItem(`leaderboard_daily_${todayStr}`, JSON.stringify(board));
     } else {
-      setScore((prevScore) => Math.max(prevScore - WRONG_PENALTY, 0));
-      newResult = {
-        success: false,
-        message:
-          (lang === "tr" ? "Yanlış tanı." : "Wrong diagnosis.") +
-          ` ${lang === "tr" ? "Puanınız" : "Your score"}: ${score - WRONG_PENALTY}`
-      };
+      const yeniTries = remainingTries - 1;
+      setRemainingTries(yeniTries);
+      if (yeniTries === 0) {
+        newResult = {
+          success: false,
+          outOfTries: true,
+          message: lang === "tr"
+            ? "Hakkınız bitti! Vaka çözülemedi. Doğru tanı: " + selectedVaka.correct_diagnosis[lang]
+            : "No attempts left! You failed to solve the case. Correct diagnosis: " + selectedVaka.correct_diagnosis[lang],
+          tries: 0
+        };
+        setResult(newResult);
+        setSolvedCase(selectedVaka.date, newResult);
+        setInfoStep(infoList.length);
+        setStatsOpen(true);
+      } else {
+        newResult = {
+          success: false,
+          message: (lang === "tr" ? "Yanlış tanı." : "Wrong diagnosis.") +
+            ` ${lang === "tr" ? "Kalan hak" : "Remaining tries"}: ${yeniTries}/${MAX_TRIES}. ` +
+            (lang === "tr" ? "Puanınız: " : "Your score: ") + (score - WRONG_PENALTY),
+          tries: yeniTries
+        };
+        setResult(newResult);
+      }
     }
-    setResult(newResult);
-    setSolvedCase(selectedVaka.date, newResult);
   };
 
-  const handleVakaSelect = (vaka) => {
-    setSelectedVaka(vaka);
-    setArchiveOpen(false);
-  };
-
+  // Bilgi blokları ikonlu ve gölgeli
   function SolvedInfo() {
     if (!result) return null;
     const solved = getSolvedCases();
     if (solved[selectedVaka.date]) {
       return (
-        <Alert severity="info" sx={{ my: 2 }}>
-          {lang === "tr"
-            ? "Bu vakayı daha önce çözdünüz. Sonucunuzu tekrar görüyorsunuz."
-            : "You have already solved this case. Your previous result is displayed."}
-        </Alert>
+        <Box sx={{ my: 2 }}>
+          <Typography color="info.main" sx={{ fontWeight: 600 }}>
+            {lang === "tr"
+              ? "Bu vakayı daha önce çözdünüz. Sonucunuzu tekrar görüyorsunuz."
+              : "You have already solved this case. Your previous result is displayed."}
+          </Typography>
+        </Box>
       );
     }
     return null;
   }
 
-  function ArchiveInfo() {
-    const solved = getSolvedCases();
-    if (solved[selectedVaka.date]) return null;
-    if (selectedVaka.date === todayVaka.date) {
-      return (
-        <Alert severity="info" sx={{ my: 2 }}>
-          {lang === "tr"
-            ? "Bu vaka bugünün vakasıdır. Buradan çözdüğünüzde puanınız günlük sıralamaya eklenir."
-            : "This is today's case. Your score will count for the daily leaderboard."}
-        </Alert>
-      );
-    } else {
-      return (
-        <Alert severity="info" sx={{ my: 2 }}>
-          {lang === "tr"
-            ? "Bu vaka arşivden çözülüyor. Puanınız kişisel istatistiklere eklenir, günlük sıralamayı etkilemez."
-            : "This is an archive case. Your score will count only towards personal statistics, not the daily leaderboard."}
-        </Alert>
-      );
-    }
-  }
-
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={darkMode ? themeDark : themeLight}>
       <Box sx={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #e3f2fd 0%, #fffde7 100%)",
+        background: darkMode
+          ? "linear-gradient(135deg, #181e24 0%, #23272b 100%)"
+          : "linear-gradient(135deg, #e3f2fd 0%, #fffde7 100%)",
         py: 4
       }}>
+        <HeaderBar
+          lang={lang}
+          setLang={setLang}
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+          onOpenArchive={() => setArchiveOpen(true)}
+          onOpenStats={() => setStatsOpen(true)}
+          onOpenProfile={() => setProfileOpen(true)}
+          onOpenLeaderboard={() => setLeaderboardOpen(true)}
+          onOpenHelp={() => setHelpOpen(true)}
+        />
         <Card sx={{ p: { xs: 0, md: 1 }, boxShadow: 12, borderRadius: 5, maxWidth: 630, margin: "0 auto" }}>
-          <CardContent>
+          <CardContent sx={{ p: { xs: 1.5, sm: 3 } }}>
             {/* Günün vakası rozeti */}
             {selectedVaka.date === todayVaka.date && (
               <Box sx={{
@@ -292,22 +358,22 @@ function App() {
                 {lang === "tr" ? "GÜNÜN VAKASI" : "CASE OF THE DAY"}
               </Box>
             )}
-            <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
-              <Button onClick={() => setArchiveOpen(true)} size="small" variant="outlined">
-                {lang === "tr" ? "Arşiv" : "Archive"}
-              </Button>
-              <Button onClick={() => setLang(lang === "tr" ? "en" : "tr")} size="small" variant="outlined">
-                {lang === "tr" ? "English" : "Türkçe"}
-              </Button>
-            </Box>
+
+            {/* Sonuç info mesajı */}
+            <SolvedInfo />
+
             <Typography variant="h5" sx={{ fontWeight: 700, mb: 2 }}>
               {lang === "tr" ? "Vaka" : "Case"} ({selectedVaka.date})
             </Typography>
+
             <DemographicsCard selectedVaka={selectedVaka} lang={lang} vitals={vitals} />
+
             {infoList.slice(0, infoStep).map((item, idx) =>
               <InfoStepCard item={item} idx={idx} key={idx} lang={lang} />
             )}
-            {infoStep < infoList.length && !result?.success && (
+
+            {/* Bilgi açma butonu */}
+            {infoStep < infoList.length && !(result?.success || result?.outOfTries) && (
               <Button
                 variant="contained"
                 color="secondary"
@@ -318,37 +384,51 @@ function App() {
                 &nbsp;(-{INFO_PENALTY} {lang === "tr" ? "puan" : "points"})
               </Button>
             )}
-            <motion.div
-              animate={result?.success ? { scale: [1, 1.12, 1] } : {}}
-              transition={{ duration: 0.4 }}
-            >
-              {!result && (
-                <Typography variant="h6" sx={{ my: 2 }}>
-                  {lang === "tr" ? "Puan" : "Score"}: {score}
-                </Typography>
-              )}
-            </motion.div>
-            {result?.success && <Confetti numberOfPieces={120} recycle={false} />}
-            <ArchiveInfo />
-            <SolvedInfo />
 
-            <Autocomplete
-              options={tanilar.map(t => t[lang])}
-              value={selectedTanı}
-              onChange={(e, newValue) => setSelectedTanı(newValue)}
-              renderInput={(params) => <TextField {...params} label={lang === "tr" ? "Tanı seç" : "Select diagnosis"} variant="outlined" />}
-              disabled={!!getSolvedCases()[selectedVaka.date]}
-              sx={{ my: 2 }}
-            />
-            <Button
-              variant="contained"
-              color="primary"
-              sx={{ mt: 1, fontWeight: 600, px: 4, py: 1, fontSize: "1rem" }}
-              onClick={handleSubmit}
-              disabled={!!getSolvedCases()[selectedVaka.date]}
-            >
-              {lang === "tr" ? "Gönder" : "Submit"}
-            </Button>
+            {/* Kalan hak ve puan */}
+            {!(result?.success || result?.outOfTries) && (
+              <>
+                <Typography sx={{ my: 1, fontWeight: 500 }}>
+                  {lang === "tr"
+                    ? `Kalan hak: ${remainingTries}/${MAX_TRIES}`
+                    : `Remaining tries: ${remainingTries}/${MAX_TRIES}`}
+                </Typography>
+                <motion.div
+                  animate={result?.success ? { scale: [1, 1.12, 1] } : {}}
+                  transition={{ duration: 0.4 }}
+                >
+                  <Typography variant="h6" sx={{ my: 2 }}>
+                    {lang === "tr" ? "Puan" : "Score"}: {score}
+                  </Typography>
+                </motion.div>
+              </>
+            )}
+
+            {/* Konfeti */}
+            {result?.success && result.justSolved && <Confetti numberOfPieces={120} recycle={false} />}
+
+            {/* Tanı seçimi */}
+            <Box sx={{ my: 2 }}>
+  <Autocomplete
+    options={tanilar.map(t => t[lang])}
+    value={selectedTanı}
+    onChange={(e, newValue) => setSelectedTanı(newValue)}
+    renderInput={(params) => <TextField {...params} label={lang === "tr" ? "Tanı seç" : "Select diagnosis"} variant="outlined" />}
+    disabled={!!getSolvedCases()[selectedVaka.date]}
+    sx={{ mb: 2 }}
+  />
+  <Button
+    variant="contained"
+    color="primary"
+    sx={{ mt: 1, fontWeight: 600, px: 4, py: 1, fontSize: "1rem" }}
+    onClick={handleSubmit}
+    disabled={!!getSolvedCases()[selectedVaka.date]}
+  >
+    {lang === "tr" ? "Gönder" : "Submit"}
+  </Button>
+</Box>
+
+            {/* Sonuç ve açıklama */}
             {result && (
               <Box sx={{ mt: 2 }}>
                 <Typography color={result.success ? "green" : "red"}>{result.message}</Typography>
@@ -367,19 +447,41 @@ function App() {
             )}
           </CardContent>
         </Card>
-        {/* Arşiv Modalı */}
+
+        {/* MODALLAR */}
         <CaseArchiveDialog
           open={archiveOpen}
           onClose={() => setArchiveOpen(false)}
           vakalar={vakalar}
+          getSolvedCases={getSolvedCases}
+          setSelectedVaka={setSelectedVaka}
           lang={lang}
           todayVaka={todayVaka}
-          getSolvedCases={getSolvedCases}
-          handleVakaSelect={handleVakaSelect}
+        />
+        <StatsDialog
+          open={statsOpen}
+          onClose={() => setStatsOpen(false)}
+          stats={getStats()}
+          lang={lang}
+        />
+        <ProfileDialog
+          open={profileOpen}
+          onClose={() => setProfileOpen(false)}
+          onNicknameSet={() => {}} // opsiyonel
+          lang={lang}
+        />
+        <DailyLeaderboardDialog
+          open={leaderboardOpen}
+          onClose={() => setLeaderboardOpen(false)}
+          date={todayVaka.date}
+          lang={lang}
+        />
+        <HelpDialog
+          open={helpOpen}
+          onClose={() => setHelpOpen(false)}
+          lang={lang}
         />
       </Box>
     </ThemeProvider>
   );
 }
-
-export default App;
