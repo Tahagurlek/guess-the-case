@@ -1,247 +1,347 @@
 [
   {
-    "date": "2025-07-12",
-    "demographics": { "age": 43, "sex": { "tr": "Kadın", "en": "Female" } },
-    "chief_complaint": { "tr": "Bulantı, kusma", "en": "Nausea, vomiting" },
+    "date": "2025-07-17",
+    "demographics": { "age": 58, "sex": { "tr": "Kadın", "en": "Female" } },
+    "chief_complaint": { "tr": "Halsizlik, bulantı", "en": "Fatigue, nausea" },
+    "steps": [
+      {
+        "key": "history",
+        "label": { "tr": "Hikaye", "en": "History" },
+        "penalty": 10
+      },
+      {
+        "key": "background",
+        "label": { "tr": "Özgeçmiş, Alışkanlık, İlaç, Soygeçmiş", "en": "Background, Habits, Medications, Family" },
+        "penalty": 10
+      },
+      {
+        "key": "physical_exam",
+        "label": { "tr": "Fizik Muayene", "en": "Physical Exam" },
+        "penalty": 10
+      },
+      {
+        "key": "fast_tests",
+        "label": { "tr": "Hızlı Sonuçlanan Testler", "en": "Fast Results" },
+        "penalty": 15
+      },
+      {
+        "key": "labs",
+        "label": { "tr": "Laboratuvar", "en": "Laboratory" },
+        "penalty": 15
+      }
+    ],
     "vitals": {
-      "tr": { "Ateş": "36.6°C", "Nabız": "85/dk", "TA": "129/84 mmHg", "SpO2": "99%", "Solunum": "19/dk" },
-      "en": { "Temp": "36.6°C", "Pulse": "85", "BP": "129/84 mmHg", "SpO2": "99%", "RR": "19/min" }
+      "tr": { "Ateş": "36.5°C", "Nabız": "100/dk", "TA": "137/84 mmHg", "SpO2": "97%", "Solunum": "25/dk" },
+      "en": { "Temp": "36.5°C", "Pulse": "100", "BP": "137/84 mmHg", "SpO2": "97%", "RR": "25/min" }
     },
     "history": {
-      "tr": "Tip 1 DM ve Graves tanılı hasta mide bulantısı, ağıza acı su gelmesi şikayetiyle başvurdu. 1 defa kusmuş.",
-      "en": "A patient with type 1 DM and Graves presented with nausea and bitter taste in the mouth. Vomited once."
+      "tr": "10 yıldır tip 2 DM tanılı. Son 1 ayda halsizlik ve iştahsızlık yakınmaları başlamış, son 3 gündür bulantı ve yemeklerden sonra kusma eklenmiş. Son 2 yılda 95 kg’dan 50 kg’a düşerek 45 kg kilo kaybı olmuş.",
+      "en": "Has a 10-year history of type 2 diabetes mellitus. Over the last month, developed fatigue and loss of appetite; for the past 3 days, nausea and postprandial vomiting. Lost 45 kg in the last 2 years (from 95 kg to 50 kg)."
     },
     "background": {
-      "tr": [
-        "Özgeçmiş: Graves (total tiroidektomi)",
-        "İlaçlar: Levotiroksin 150mg 1x1, insülin glarjin 8 IU, insülin aspart 3x2 IU",
-        "Alışkanlıklar: Sigara yok, alkol yok",
-        "Aile öyküsü: Tip 2 DM var"
-      ],
-      "en": [
-        "Past medical history: Graves (total thyroidectomy)",
-        "Medications: levothyroxine 150mg 1x1, insulin glargine 8 IU, insulin aspart 3x2 IU",
-        "Habits: No smoking or alcohol",
-        "Family history: Type 2 DM"
-      ]
+      "tr": {
+        "Özgeçmiş": "Kolesistektomi (2012)",
+        "Alışkanlıklar": "30 paket/yıl sigara (halen içiyor), alkol yok",
+        "Kullandığı İlaçlar": "Asetilsalisilik asit 100 mg 1x1, empagliflozin 25 mg 1x1, pantoprazol 40 mg 1x1, insülin glarjin 20 IU 1x1, insülin aspart 8 IU 3x1",
+        "Soygeçmiş": "Özellik yok"
+      },
+      "en": {
+        "Past Medical History": "Cholecystectomy (2012)",
+        "Habits": "30 pack-years smoking (current smoker), no alcohol",
+        "Medications": "Acetylsalicylic acid 100 mg 1x1, empagliflozin 25 mg 1x1, pantoprazole 40 mg 1x1, insulin glargine 20 IU 1x1, insulin aspart 8 IU 3x1",
+        "Family History": "Not significant"
+      }
     },
     "physical_exam": {
-      "tr": "Genel durumu orta, defans ve rebound yok, hassasiyet yok.",
-      "en": "Moderately ill, no defense or rebound, no tenderness."
+      "tr": {
+        "Genel Durum": "Genel durumu orta, bilinci açık, oryante. İkter ve siyanoz yok. Saç ve saçlı deri doğal. Lenfadenomegali ve juguler venöz dolgunluk yok.",
+        "Kardiyovasküler Sistem": "Kalp sesleri ritmik, S1-S2 doğal, ek ses veya üfürüm yok.",
+        "Solunum Sistemi": "Solunum sesleri her iki hemitoraksta doğal ve eşit, ral ve ronküs yok.",
+        "Gastrointestinal Sistem": "Orofaringeal muayene doğal, bağırsak sesleri normoaktif, batın yumuşak, defans ve rebound yok, Traube alanı açık, karaciğer ve dalak ele gelmiyor.",
+        "Genitoüriner Sistem": "Suprapubik hassasiyet mevcut. Kostovertebral açı hassasiyeti yok, glob vezikale yok.",
+        "Lokomotor Sistem": "Artrit veya deformite yok, pretibial ödem yok.",
+        "Sinir Sistemi": "Pupiller izokorik, ense sertliği yok, kas gücü 5/5, DTR’ler normoaktif, motor ve duyu muayenesi doğal."
+      },
+      "en": {
+        "General Condition": "Moderate general condition, conscious, oriented. No jaundice or cyanosis. Hair and scalp normal. No lymphadenopathy or jugular venous distension.",
+        "Cardiovascular System": "Heart sounds rhythmic, S1-S2 normal, no extra sounds or murmurs.",
+        "Respiratory System": "Breath sounds are normal and equal bilaterally, no rales or rhonchi.",
+        "Gastrointestinal System": "Oropharyngeal exam normal, bowel sounds normoactive, abdomen is soft with no defense or rebound, Traube’s space clear, liver and spleen not palpable.",
+        "Genitourinary System": "Suprapubic tenderness present. No costovertebral angle tenderness, no bladder distension.",
+        "Locomotor System": "No arthritis or deformity, no pretibial edema.",
+        "Nervous System": "Pupils isochoric, no neck stiffness, muscle strength 5/5, DTRs normoactive, motor and sensory exams normal."
+      }
     },
-    "labs": { "Glukoz": 258, "Na": 136, "K": 4.6, "Kreatinin": 0.86 },
-    "blood_gas": { "pH": 7.2, "HCO3": 13.5, "Anion gap": 18 },
-    "urinalysis": { "Keton": "3+", "Glukoz": "3+" },
-    "hemogram": { "Nötrofilik lökositoz": true },
-    "ekg": { "tr": "Normal sinüs ritmi", "en": "Normal sinus rhythm" },
-    "imaging": { "tr": "-", "en": "-" },
-    "course": {
-      "tr": "Tedaviye başlandıktan sonra kan şekeri düşüşe geçti, metabolik asidoz geriledi.",
-      "en": "After treatment, blood glucose started to decrease and metabolic acidosis improved."
+    "fast_tests": {
+      "blood_gas": {
+        "pH": { "value": 7.1, "ref": "7.35-7.45" },
+        "pCO2": { "value": 18.6, "ref": "35-45 mmHg" },
+        "HCO3": { "value": 7.7, "ref": "22-26 mmol/L" },
+        "K": { "value": 6.9, "ref": "3.5-5.1 mmol/L" },
+        "Cl": { "value": 95, "ref": "98-107 mmol/L" },
+        "Hb": { "value": 9.2, "ref": "12-16 g/dL" }
+      },
+      "ekg": {
+        "tr": "Sinüs ritmi, düzenli, taşikardik, iskemi bulgusu yok",
+        "en": "Sinus rhythm, regular, tachycardic, no ischemic changes"
+      }
     },
-    "correct_diagnosis": { "tr": "Diyabetik ketoasidoz", "en": "Diabetic ketoacidosis" },
+    "labs": {
+      "hemogram": {
+        "WBC": { "value": 25.59, "ref": "4.5-11 x10^3/µL" },
+        "Hgb": { "value": 9.2, "ref": "12-16 g/dL" },
+        "MCV": { "value": 79, "ref": "80-96 fL" },
+        "Plt": { "value": 203, "ref": "150-450 x10^3/µL" },
+        "Neut#": { "value": 2370, "ref": "2000-7000/µL" }
+      },
+      "biochemistry": {
+        "tr": {
+          "Glukoz": { "value": 461, "ref": "70-100 mg/dL" },
+          "Sodyum": { "value": 130, "ref": "135-145 mmol/L" },
+          "Potasyum": { "value": 6.9, "ref": "3.5-5.1 mmol/L" },
+          "Klor": { "value": 92, "ref": "98-107 mmol/L" },
+          "Magnezyum": { "value": 1.12, "ref": "1.7-2.4 mg/dL" },
+          "Fosfor": { "value": 5.4, "ref": "2.5-4.5 mg/dL" },
+          "CRP": { "value": 208, "ref": "<5 mg/L" },
+          "BUN": { "value": 27, "ref": "7-18 mg/dL" },
+          "Üre": { "value": 58, "ref": "16.6-48.5 mg/dL" },
+          "Kreatinin": { "value": 1.18, "ref": "0.6-1.2 mg/dL" }
+        },
+        "en": {
+          "Glucose": { "value": 461, "ref": "70-100 mg/dL" },
+          "Na": { "value": 130, "ref": "135-145 mmol/L" },
+          "K": { "value": 6.9, "ref": "3.5-5.1 mmol/L" },
+          "Cl": { "value": 92, "ref": "98-107 mmol/L" },
+          "Mg": { "value": 1.12, "ref": "1.7-2.4 mg/dL" },
+          "Phosphorus": { "value": 5.4, "ref": "2.5-4.5 mg/dL" },
+          "CRP": { "value": 208, "ref": "<5 mg/L" },
+          "BUN": { "value": 27, "ref": "7-18 mg/dL" },
+          "Urea": { "value": 58, "ref": "16.6-48.5 mg/dL" },
+          "Creatinine": { "value": 1.18, "ref": "0.6-1.2 mg/dL" }
+        }
+      },
+    "urinalysis": {
+      "tr": {
+        "Keton": { "value": "3+", "ref": "negatif" },
+        "Glukoz": { "value": "3+", "ref": "negatif" },
+        "Eritrosit": { "value": 10, "ref": "<5 /HPF" },
+        "Lökosit": { "value": 27, "ref": "<5 /HPF" }
+      },
+      "en": {
+        "Ketone": { "value": "3+", "ref": "negative" },
+        "Glucose": { "value": "3+", "ref": "negative" },
+        "Erythrocyte": { "value": 10, "ref": "<5 /HPF" },
+        "Leukocyte": { "value": 27, "ref": "<5 /HPF" }
+      }
+    }
+    },
+
+    "imaging": null,
+    "course": null,
+    "correct_diagnosis": {
+      "tr": "Diyabetik ketoasidoz",
+      "en": "Diabetic ketoacidosis"
+    },
     "explanation": {
-      "tr": "Tip 1 DM hastasında anion gapli metabolik asidoz, ketonüri ve hiperglisemi ile DKA tanısı konur.",
-      "en": "In type 1 DM patient, anion gap metabolic acidosis, ketonuria, and hyperglycemia confirm DKA diagnosis."
+      "tr": "Hiperglisemi, asidoz (pH: 7.1, HCO3: 7.7), ketonüri ve tip 2 diyabet öyküsü ile diyabetik ketoasidoz tanısı desteklenmektedir.",
+      "en": "Hyperglycemia, acidosis (pH: 7.1, HCO3: 7.7), ketonuria, and history of type 2 diabetes support the diagnosis of diabetic ketoacidosis."
     },
     "references": [
       { "tr": "Harrisons Internal Medicine, 21. baskı, DKA bölümü", "en": "Harrison's Internal Medicine, 21st edition, DKA chapter" }
     ]
   },
-{
-  "date": "2025-07-13",
-  "demographics": { "age": 22, "sex": { "tr": "Erkek", "en": "Male" } },
-  "chief_complaint": { 
-    "tr": "Bulantı, kusma, ciltte sararma, karın ağrısı", 
-    "en": "Nausea, vomiting, jaundice, abdominal pain" 
-  },
-  "vitals": {
-    "tr": { "Ateş": "37.8°C", "TA": "97/55 mmHg", "Nabız": "79/dk", "SpO2": "95%", "Solunum": "14/dk" },
-    "en": { "Temp": "37.8°C", "BP": "97/55 mmHg", "Pulse": "79", "SpO2": "95%", "RR": "14/min" }
-  },
-  "history": {
-    "tr": "20 gün önce sırtta başlayan kaşıntıya, 5 gün önce bulantı, kusma, ciltte sararma ve karın ağrısı eklenmiş.",
-    "en": "Itching on the back started 20 days ago; 5 days ago, nausea, vomiting, jaundice, and abdominal pain were added."
-  },
-  "background": {
-    "tr": [
-      "Alışkanlıklar: 5 paket/yıl sigara, alkol kullanımı var",
-      "İlaçlar: ibuprofen 1x1, parasetamol 500mg 1x1, amoksisilin klavulonat 1000mg 2x1"
+  {
+    "date": "2025-07-18",
+    "demographics": { "age": 68, "sex": { "tr": "Kadın", "en": "Female" } },
+    "chief_complaint": { "tr": "Burun kanaması", "en": "Epistaxis" },
+    "steps": [
+      {
+        "key": "history",
+        "label": { "tr": "Hikaye", "en": "History" },
+        "penalty": 10
+      },
+      {
+        "key": "background",
+        "label": { "tr": "Özgeçmiş, Alışkanlık, İlaç, Soygeçmiş", "en": "Background, Habits, Medications, Family" },
+        "penalty": 10
+      },
+      {
+        "key": "physical_exam",
+        "label": { "tr": "Fizik Muayene", "en": "Physical Exam" },
+        "penalty": 10
+      },
+      {
+        "key": "fast_tests",
+        "label": { "tr": "Hızlı Sonuçlanan Testler", "en": "Fast Results" },
+        "penalty": 10
+      },
+      {
+        "key": "labs",
+        "label": { "tr": "Laboratuvar", "en": "Laboratory" },
+        "penalty": 15
+      },
+      {
+        "key": "coombs_tests",
+        "label": { "tr": "Coombs Testleri", "en": "Coombs Tests" },
+        "penalty": 10,
+        "optional": true
+      },
+      {
+        "key": "imaging",
+        "label": { "tr": "Görüntüleme", "en": "Imaging" },
+        "penalty": 10
+      },
+      {
+        "key": "course",
+        "label": { "tr": "Klinik Seyir", "en": "Clinical Course" },
+        "penalty": 10
+      }
     ],
-    "en": [
-      "Habits: 5 pack-years smoking, alcohol use present",
-      "Medications: ibuprofen 1x1, paracetamol 500mg 1x1, amoxicillin-clavulanate 1000mg 2x1"
+    "vitals": {
+      "tr": { "Ateş": "36.2°C", "Nabız": "77/dk, ritmik", "TA": "121/49 mmHg", "SpO2": "95%", "Solunum": "14/dk" },
+      "en": { "Temp": "36.2°C", "Pulse": "77, regular", "BP": "121/49 mmHg", "SpO2": "95%", "RR": "14/min" }
+    },
+    "history": {
+      "tr": "Bilinen hipertansiyon, tip 2 DM, koroner arter hastalığı, KOAH, majör depresyon ve geçirilmiş iskemik SVO tanıları mevcut. Burun kanaması şikayetiyle başvurdu.",
+      "en": "Known hypertension, type 2 DM, coronary artery disease, COPD, major depression, and previous ischemic stroke. Presented with epistaxis."
+    },
+    "background": {
+      "tr": {
+        "Özgeçmiş": "Hipertansiyon (2004), Tip 2 DM (2004), koroner arter hastalığı (2022, 2 stent), KOAH (2010), iskemik SVO (2021)",
+        "Alışkanlıklar": "Alkol yok, sigara yok",
+        "Kullandığı İlaçlar": "Glikopironyum inhaler 3x1, klopidogrel 75 mg 1x1, furosemid 40 mg 1x1, ramipril 5 mg 1x1, feniramidol 400 mg 3x1, trimetazidin 35 mg 1x1, lantus 30 IU, novorapid 3x10 IU",
+        "Soygeçmiş": "Baba 42 yaşında MI nedeniyle eksitus, anne sağ 78 yaşında KOAH, DM, HT tanılı"
+      },
+      "en": {
+        "Past Medical History": "Hypertension (2004), type 2 DM (2004), coronary artery disease (2022, 2 stents), COPD (2010), ischemic stroke (2021)",
+        "Habits": "No alcohol, no smoking",
+        "Medications": "Glycopyrronium inhaler 3x1, clopidogrel 75 mg 1x1, furosemide 40 mg 1x1, ramipril 5 mg 1x1, pheniramidol 400 mg 3x1, trimetazidine 35 mg 1x1, Lantus 30 IU, Novorapid 3x10 IU",
+        "Family History": "Father died at 42 due to MI, mother alive at 78 with COPD, DM, and HT"
+      }
+    },
+    "physical_exam": {
+      "tr": {
+        "Genel Durum": "Genel durumu iyi, oryante ve koopere.",
+        "Deri": "Sol kolda ve bilateral alt ekstremitede yaygın peteşi mevcut.",
+        "Kardiyovasküler Sistem": "Periferik nabızlar bilateral eşit ve palpabl, kapiller dolum zamanı normal.",
+        "Solunum Sistemi": "Solunum sesleri doğal, ral ve ronküs yok, solunuma bilateral eşit katılım var.",
+        "Ağız ve Orofarenks": "Orofaringeal muayenede hemorajik postnazal akıntı, damakta yaygın peteşi, oral kavitede hemorajik bül yok.",
+        "Batın": "Batın muayenesi doğal, defans ve rebound yok.",
+        "Genitoüriner Sistem": "Genitoüriner muayene doğal.",
+        "Lokomotor Sistem": "Lokomotor sistem muayenesi doğal.",
+        "Sinir Sistemi": "GKS 15, ense sertliği yok."
+      },
+      "en": {
+        "General Condition": "General condition good, oriented and cooperative.",
+        "Skin": "Diffuse petechiae on left arm and both lower extremities.",
+        "Cardiovascular System": "Peripheral pulses palpable and equal bilaterally, capillary refill time normal.",
+        "Respiratory System": "Breath sounds normal, no rales or rhonchi, symmetrical chest expansion.",
+        "Mouth and Oropharynx": "Hemorrhagic postnasal drip on oropharyngeal exam, widespread petechiae on palate, no hemorrhagic bullae in oral cavity.",
+        "Abdomen": "Abdominal exam normal, no defense or rebound.",
+        "Genitourinary System": "Genitourinary exam normal.",
+        "Locomotor System": "Locomotor exam normal.",
+        "Nervous System": "GCS 15, no neck stiffness."
+      }
+    },
+    "fast_tests": {
+      "blood_gas": {
+        "pH": { "value": 7.41, "ref": "7.35-7.45" },
+        "pCO2": { "value": 43, "ref": "35-45 mmHg" },
+        "HCO3": { "value": 25.6, "ref": "22-26 mmol/L" },
+        "Na": { "value": 132, "ref": "135-145 mmol/L" },
+        "K": { "value": 4.1, "ref": "3.5-5.1 mmol/L" },
+        "Lac": { "value": 1, "ref": "0.5-2.2 mmol/L" }
+      },
+      "ekg": {
+        "tr": "Ritm sinüs, iskemi bulgusu yok.",
+        "en": "Sinus rhythm, no signs of ischemia."
+      },
+      "peripheral_smear": {
+        "tr": "Şiştosit, sferosit ve atipik hücre görülmedi. Trombosit sayısı hemogram ile uyumlu.",
+        "en": "No schistocytes, spherocytes, or atypical cells observed. Platelet count consistent with hemogram."
+      }
+    },
+    "labs": {
+      "hemogram": {
+        "Hgb": { "value": 11, "ref": "12-16 g/dL" },
+        "Hct": { "value": 33.9, "ref": "36-47%" },
+        "Plt": { "value": 1, "ref": "150-450 x10^3/µL" },
+        "Lymph#": { "value": 0.45, "ref": "1.0-3.2 x10^3/µL" },
+        "WBC": { "value": 6.4, "ref": "4.5-11 x10^3/µL" }
+      },
+      "biochemistry": {
+        "tr": {
+          "CRP": { "value": 88, "ref": "<5 mg/L" },
+          "Glukoz": { "value": 342, "ref": "70-100 mg/dL" },
+          "Sodyum": { "value": 135, "ref": "135-145 mmol/L" },
+          "Magnezyum": { "value": 0.77, "ref": "1.7-2.4 mg/dL" },
+          "Potasyum": { "value": 4.24, "ref": "3.5-5.1 mmol/L" },
+          "Klor": { "value": 97, "ref": "98-107 mmol/L" },
+          "Kalsiyum": { "value": 8.69, "ref": "8.6-10.2 mg/dL" },
+          "Fosfor": { "value": 4.38, "ref": "2.5-4.5 mg/dL" },
+          "Kreatinin": { "value": 0.68, "ref": "0.6-1.2 mg/dL" },
+          "ALT": { "value": 47, "ref": "0-41 U/L" },
+          "AST": { "value": 41, "ref": "0-40 U/L" },
+          "ALP": { "value": 317, "ref": "44-147 U/L" },
+          "Haptoglobin": { "value": 308, "ref": "30-200 mg/dL" },
+          "Fibrinojen": { "value": 580, "ref": "200-400 mg/dL" },
+          "aPTT": { "value": 31, "ref": "24-35 sn" },
+          "PT Zamanı": { "value": 15.3, "ref": "10-13.5 sn" },
+          "INR": { "value": 1.29, "ref": "0.8-1.2" },
+          "Protrombin Aktivitesi": { "value": 64, "ref": "%70-100" }
+        },
+        "en": {
+          "CRP": { "value": 88, "ref": "<5 mg/L" },
+          "Glucose": { "value": 342, "ref": "70-100 mg/dL" },
+          "Na": { "value": 135, "ref": "135-145 mmol/L" },
+          "Mg": { "value": 0.77, "ref": "1.7-2.4 mg/dL" },
+          "K": { "value": 4.24, "ref": "3.5-5.1 mmol/L" },
+          "Cl": { "value": 97, "ref": "98-107 mmol/L" },
+          "Calcium": { "value": 8.69, "ref": "8.6-10.2 mg/dL" },
+          "Phosphorus": { "value": 4.38, "ref": "2.5-4.5 mg/dL" },
+          "Creatinine": { "value": 0.68, "ref": "0.6-1.2 mg/dL" },
+          "ALT": { "value": 47, "ref": "0-41 U/L" },
+          "AST": { "value": 41, "ref": "0-40 U/L" },
+          "ALP": { "value": 317, "ref": "44-147 U/L" },
+          "Haptoglobin": { "value": 308, "ref": "30-200 mg/dL" },
+          "Fibrinogen": { "value": 580, "ref": "200-400 mg/dL" },
+          "aPTT": { "value": 31, "ref": "24-35 sec" },
+          "PT": { "value": 15.3, "ref": "10-13.5 sec" },
+          "INR": { "value": 1.29, "ref": "0.8-1.2" },
+          "Prothrombin Activity": { "value": 64, "ref": "%70-100" }
+        }
+      }
+    },
+    "coombs_tests": {
+      "tr": {
+        "Direkt Coombs testi (IgG)": "Negatif",
+        "Direkt Coombs (kompleman)": "Negatif",
+        "İndirekt Coombs testi": "Negatif"
+      },
+      "en": {
+        "Direct Coombs test (IgG)": "Negative",
+        "Direct Coombs (complement)": "Negative",
+        "Indirect Coombs test": "Negative"
+      }
+    },
+    "imaging": {
+      "tr": "BT: Sağ akciğer alt lobda buzlu cam dansitesinde opasite, karaciğer falsiform ligament komşuluğunda 10x10 mm hipodens lezyon, paraortakaval alanda bazıları konglomere, en küçüğü 38x17 mm olan patolojik lenf nodları, sağ memede ödemli görünüm, sağ aksillada patolojik lenfadenomegali.",
+      "en": "CT: Ground-glass opacity in right lower lobe, 10x10 mm hypodense lesion near falciform ligament of liver, pathological lymph nodes in paraaortic-caval area (smallest 38x17 mm, some conglomerated), edematous appearance in right breast, pathological lymphadenopathy in right axilla."
+    },
+    "course": {
+      "tr": "1 ünite aferez trombosit ile plt 4000 görüldü. Kanama devam etmekte. 80 mg prednol ve aktif kanama için 1 gr/kg IVIG tedavisi önerildi.",
+      "en": "After 1 unit apheresis platelet transfusion, platelet count was 4000. Bleeding continued. 80 mg prednisolone and 1 g/kg IVIG were recommended for active bleeding."
+    },
+    "correct_diagnosis": {
+      "tr": "İmmün trombositopenik purpura (ITP)",
+      "en": "Immune thrombocytopenic purpura (ITP)"
+    },
+    "explanation": {
+      "tr": "Ön planda maligniteye sekonder ITP düşünüldü. Bu nedenle prednol ve IVIG tedavisi başlandı.",
+      "en": "ITP secondary to malignancy was considered. Therefore, prednisolone and IVIG therapy were initiated."
+    },
+    "references": [
+      { "tr": "Harrison's İç Hastalıkları, 21. baskı, ITP bölümü", "en": "Harrison's Internal Medicine, 21st edition, ITP chapter" }
     ]
-  },
-  "physical_exam": {
-    "tr": "Sklera, cilt ve orofarenks ikterik. Palpasyonla epigastrik hassasiyet mevcut. Splenomegali yok, hepatomegali yok, defans ve rebound yok.",
-    "en": "Sclera, skin, and oropharynx are icteric. Epigastric tenderness on palpation. No splenomegaly, no hepatomegaly, no defense or rebound."
-  },
-  "labs": { 
-    "Hgb": 15.5, 
-    "Total Bilirubin": 14.8, 
-    "Direct Bilirubin": 13.02, 
-    "Indirect Bilirubin": 1.7,
-    "ALT": 1571,
-    "AST": 977,
-    "Prokalsitonin": 0.99,
-    "Kreatinin": 0.69,
-    "BUN": 3.1,
-    "INR": 1.66,
-    "aPTT": 38,
-    "PT": 19.5,
-    "Anti-HBs": "+",
-    "Fibrinojen": 170
-  },
-  "blood_gas": {},
-  "hemogram": {},
-  "urinalysis": {},
-  "ekg": { "tr": "Normal sinüs ritmi", "en": "Normal sinus rhythm" },
-  "imaging": { 
-    "tr": "USG: Safra kesesi duvar kalınlığı artmış izlendi.", 
-    "en": "Ultrasound: Gallbladder wall thickness increased."
-  },
-  "course": {
-    "tr": "Ön planda akut hepatit düşünülen hastaya 1000cc izotonik başlandı.",
-    "en": "Patient, initially considered to have acute hepatitis, was started on 1000cc isotonic saline."
-  },
-  "correct_diagnosis": { "tr": "Akut kolesistit", "en": "Acute cholecystitis" },
-  "explanation": {
-    "tr": "Hastada karaciğer enzimlerinde ciddi yükseklik, belirgin ikter, safra kesesi duvar kalınlığı ve epigastrik hassasiyet ile akut kolesistit ön planda düşünülür.",
-    "en": "Severe elevation of liver enzymes, marked jaundice, gallbladder wall thickening, and epigastric tenderness suggest acute cholecystitis."
-  },
-  "references": [
-    { "tr": "Harrisons Internal Medicine, 21. baskı, Akut Kolesistit", "en": "Harrison's Internal Medicine, 21st edition, Acute Cholecystitis" }
-  ]
-},
-{
-  "date": "2025-07-14",
-  "demographics": { "age": 57, "sex": { "tr": "Erkek", "en": "Male" } },
-  "chief_complaint": { "tr": "Nefes darlığı", "en": "Shortness of breath" },
-  "vitals": {
-    "tr": { "Ateş": "36.2°C", "Nabız": "130/dk", "TA": "121/81 mmHg", "SpO2": "96%", "Solunum": "16/dk" },
-    "en": { "Temp": "36.2°C", "Pulse": "130", "BP": "121/81 mmHg", "SpO2": "96%", "RR": "16/min" }
-  },
-  "history": {
-    "tr": "3 saat önce başlayan nefes darlığı ve göğüs yan duvarında batıcı ağrı şikayetiyle başvurdu. Bir hafta önce merdivenden düşme sonrası sol ayakta kırık oluşmuş, kafa travması öyküsü yok. Son 4 haftadır immobil durumda yatmakta.",
-    "en": "Presented with shortness of breath and stabbing pain in the lateral chest wall that began 3 hours ago. One week ago, fell down stairs, resulting in a fracture in the left foot, without head trauma. He has been immobilized in bed for the last 4 weeks."
-  },
-  "background": {
-    "tr": [
-      "Alışkanlıklar: 16 paket/yıl sigara (30 yıldır içmiyor, ex-smoker)",
-      "Alkol: Sosyal içici"
-    ],
-    "en": [
-      "Habits: 16 pack-years of smoking (quit 30 years ago, ex-smoker)",
-      "Alcohol: Social drinker"
-    ]
-  },
-  "physical_exam": {
-    "tr": "Bilinç açık, oryante. Sol pretibial ödem (+), diğer ekstremitelerde ödem yok. Solunum sesleri bilateral normal, kalp sesleri ritmik ve normal, batın yumuşak, defans ve rebound yok.",
-    "en": "Conscious and oriented. Left pretibial edema (+), no edema in other extremities. Bilateral breath sounds are normal. Heart sounds are rhythmic and normal. Abdomen is soft, without defense or rebound."
-  },
-  "labs": { 
-    "WBC": 11.54,
-    "Hgb": 12.5,
-    "Plt": 260000,
-    "Lymph#": 14.5,
-    "CRP": 55.6,
-    "Glucose": 120,
-    "Procalcitonin": 0.59,
-    "Pro-BNP": 80,
-    "D-dimer": 2460,
-    "Fibrinogen": 543
-  },
-  "blood_gas": { "pH": 7.44, "HCO3": 25.6, "pCO2": 37 },
-  "hemogram": {},
-  "urinalysis": {},
-  "ekg": { "tr": "Sinüs ritmi, normal", "en": "Normal sinus rhythm" },
-  "imaging": { 
-    "tr": "Toraks BT anjiyografi: Sağ ana pulmoner arterde emboli ile uyumlu perfüzyon defekti.",
-    "en": "Chest CT angiography: Perfusion defect in the right main pulmonary artery consistent with embolism."
-  },
-  "course": {
-    "tr": "Pulmoner emboli tanısıyla antikoagülan tedavi başlandı.",
-    "en": "Anticoagulant therapy was initiated for the diagnosis of pulmonary embolism."
-  },
-  "correct_diagnosis": { "tr": "Pulmoner emboli", "en": "Pulmonary embolism" },
-  "explanation": {
-    "tr": "Uzun süreli immobilite, yüksek D-dimer, ani başlayan nefes darlığı ve BT'de emboli bulguları pulmoner emboli tanısını desteklemektedir.",
-    "en": "Prolonged immobility, elevated D-dimer, sudden onset shortness of breath, and embolism findings on CT support the diagnosis of pulmonary embolism."
-  },
-  "references": [
-    { "tr": "Harrisons Internal Medicine, 21. baskı, Pulmoner Emboli bölümü", "en": "Harrison's Internal Medicine, 21st edition, Pulmonary Embolism chapter" }
-  ]
-},
-{
-  "date": "2025-07-16",
-  "demographics": { "age": 58, "sex": { "tr": "Kadın", "en": "Female" } },
-  "chief_complaint": { "tr": "Halsizlik, bulantı", "en": "Fatigue, nausea" },
-  "vitals": {
-    "tr": { "Ateş": "36.5°C", "Nabız": "100/dk", "TA": "137/84 mmHg", "SpO2": "97%", "Solunum": "25/dk" },
-    "en": { "Temp": "36.5°C", "Pulse": "100", "BP": "137/84 mmHg", "SpO2": "97%", "RR": "25/min" }
-  },
-  "history": {
-    "tr": "10 yıldır tip 2 DM tanılı. Son 1 aydır halsizlik ve iştahsızlık şikayetlerine, 3 gündür bulantı ve yemek sonrası kusma eklenmiş. Son 2 yılda 95 kg'dan 50 kg'a düşerek yaklaşık 45 kg kilo kaybı olmuş.",
-    "en": "Has a 10-year history of type 2 diabetes mellitus. Over the last month, developed fatigue and loss of appetite, with new-onset nausea and postprandial vomiting for 3 days. She lost about 45 kg over the past 2 years, dropping from 95 kg to 50 kg."
-  },
-  "background": {
-    "tr": [
-      "Özgeçmiş: Kolesistektomi (2012)",
-      "Alışkanlıklar: 30 paket/yıl sigara (halen içiyor), alkol yok",
-      "Kullandığı ilaçlar: Asetilsalisilik asit 100 mg 1x1, empagliflozin 25 mg 1x1, pantoprazol 40 mg 1x1, insülin glarjin 20 IU 1x1, insülin aspart 8 IU 3x1",
-      "Soygeçmiş: Özellik yok"
-    ],
-    "en": [
-      "Past medical history: Cholecystectomy (2012)",
-      "Habits: 30 pack-years smoking (current smoker), no alcohol",
-      "Medications: acetylsalicylic acid 100 mg 1x1, empagliflozin 25 mg 1x1, pantoprazole 40 mg 1x1, insulin glargine 20 IU 1x1, insulin aspart 8 IU 3x1",
-      "Family history: Not significant"
-    ]
-  },
-  "physical_exam": {
-    "tr": "Genel durumu orta, bilinç açık, oryante ve koopere. Ateş: 36.5°C, nabız: 100/dk, tansiyon: 137/84 mmHg, SpO2: %97, solunum sayısı: 25/dk. Suprapubik hassasiyet mevcut. Diğer sistem muayeneleri doğal sınırlarda.",
-    "en": "Moderate general condition, conscious, oriented and cooperative. Temp: 36.5°C, pulse: 100/min, BP: 137/84 mmHg, SpO2: 97%, respiratory rate: 25/min. Suprapubic tenderness present. Other system examinations were within normal limits."
-  },
-  "labs": { 
-    "Venous pH": 7.1,
-    "HCO3": 7.7,
-    "pCO2": 18.6,
-    "Cl": 92,
-    "K": 6.9,
-    "Mg": 1.12,
-    "Phosphorus": 5.4,
-    "CRP": 208,
-    "Glucose": 461,
-    "BUN": 27,
-    "Urea": 58,
-    "Creatinine": 1.18,
-    "Na": 130,
-    "Hgb": 9.2,
-    "WBC": 25590,
-    "MCV": 79,
-    "Plt": 203000,
-    "Neut#": 2370
-  },
-  "blood_gas": { "pH": 7.1, "HCO3": 7.7, "pCO2": 18.6, "Cl": 95, "K": 6.9 },
-  "hemogram": {},
-  "urinalysis": { "Keton": "3+", "Glukoz": "3+", "Eritrosit": "10", "Lökosit": "27" },
-  "ekg": { "tr": "Sinüs ritminde, düzenli, taşikardik, iskemi bulgusu yok", "en": "Sinus rhythm, regular, tachycardic, no ischemic changes" },
-  "imaging": { "tr": "-", "en": "-" },
-  "course": {
-    "tr": "Hasta diyabetik ketoasidoz tanısıyla izleme alındı ve uygun tedavi başlandı.",
-    "en": "The patient was diagnosed with diabetic ketoacidosis and appropriate treatment was initiated."
-  },
-  "correct_diagnosis": { "tr": "Diyabetik ketoasidoz", "en": "Diabetic ketoacidosis" },
-  "explanation": {
-    "tr": "Hiperglisemi, asidoz (pH: 7.1, HCO3: 7.7), ketonüri ve tip 2 diyabet öyküsü ile diyabetik ketoasidoz tanısı desteklenmektedir.",
-    "en": "Hyperglycemia, acidosis (pH: 7.1, HCO3: 7.7), ketonuria, and history of type 2 diabetes support the diagnosis of diabetic ketoacidosis."
-  },
-  "references": [
-    { "tr": "Harrisons Internal Medicine, 21. baskı, DKA bölümü", "en": "Harrison's Internal Medicine, 21st edition, DKA chapter" }
-  ]
-}
-
-
-
+  }
 ]

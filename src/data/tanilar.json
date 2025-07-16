@@ -2,5 +2,15 @@
   { "tr": "Diyabetik ketoasidoz", "en": "Diabetic ketoacidosis" },
   { "tr": "Hiperozmolar hiperglisemik durum", "en": "Hyperosmolar hyperglycemic state" },
   { "tr": "Hipoglisemi", "en": "Hypoglycemia" },
-  { "tr": "Gastroenterit", "en": "Gastroenteritis" }
+  { "tr": "Gastroenterit", "en": "Gastroenteritis" },
+  { "tr": "Laktik asidoz", "en": "Lactic acidosis" },
+  { "tr": "Sepsis", "en": "Sepsis" },
+  { "tr": "Akut böbrek yetmezliği", "en": "Acute renal failure" },
+  { "tr": "Akut pankreatit", "en": "Acute pancreatitis" },
+  { "tr": "İlaç intoksikasyonu", "en": "Drug intoxication" },
+  { "tr": "Akut karın", "en": "Acute abdomen" },
+  { "tr": "Tiroid fırtınası", "en": "Thyroid storm" },
+  { "tr": "İmmün trombositopenik purpura (ITP)", "en": "Immune thrombocytopenic purpura (ITP)" },
+  { "tr": "Adrenal yetmezlik", "en": "Adrenal insufficiency" },
+  { "tr": "Akut myokard enfarktüsü", "en": "Acute myocardial infarction" }
 ]

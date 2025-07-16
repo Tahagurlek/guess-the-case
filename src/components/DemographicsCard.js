@@ -17,28 +17,32 @@ export default function DemographicsCard({ selectedVaka, lang, vitals }) {
         {lang === "tr" ? "Kimlik Bilgileri & Şikayet" : "Demographics & Chief Complaint"}
       </Typography>
       <Typography>
-        <b>{lang === "tr" ? "Yaş" : "Age"}:</b> {selectedVaka.demographics.age}
-        &nbsp;|&nbsp;
-        <b>{lang === "tr" ? "Cinsiyet" : "Sex"}:</b> {selectedVaka.demographics.sex[lang]}
-      </Typography>
-      <Typography>
-        <b>{lang === "tr" ? "Şikayet" : "Chief Complaint"}:</b> {selectedVaka.chief_complaint[lang]}
-      </Typography>
-      <Box sx={{
-        mt: 1,
-        p: 1,
-        background: theme => theme.palette.mode === "dark" ? "#292929" : "#fffde7",
-        borderRadius: 1,
-        display: "flex",
-        gap: 2,
-        flexWrap: "wrap"
-      }}>
-        {vitals && Object.entries(vitals).map(([k, v], i) => (
-          <Box key={i} sx={{ mr: 2 }}>
-            <b>{k}:</b> {v}
-          </Box>
-        ))}
-      </Box>
+  <b>{lang === "tr" ? "Yaş" : "Age"}:</b> {selectedVaka.demographics.age}
+  &nbsp;|&nbsp;
+  <b>{lang === "tr" ? "Cinsiyet" : "Sex"}:</b> {selectedVaka.demographics.sex[lang]}
+</Typography>
+<Typography>
+  <b>{lang === "tr" ? "Şikayet" : "Chief Complaint"}:</b> {selectedVaka.chief_complaint[lang]}
+</Typography>
+<Box
+  sx={{
+    mt: 1,
+    p: 1,
+    borderRadius: 1,
+    display: "flex",
+    gap: 2,
+    flexWrap: "wrap",
+    background: theme =>
+      theme.palette.mode === "dark" ? "#23272b" : "#fffde7"
+  }}
+>
+  {vitals && Object.entries(vitals).map(([k, v], i) => (
+    <Box key={i} sx={{ mr: 2 }}>
+      <b>{k}:</b> {v}
+    </Box>
+  ))}
+</Box>
+
     </Box>
   );
 }

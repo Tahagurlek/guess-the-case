@@ -53,7 +53,7 @@ export default function HeaderBar({
               userSelect: "none"
             }}
           >
-            Case of The Day
+            Guess The Case
           </Typography>
 
           <IconButton color="inherit" onClick={onOpenLeaderboard}>

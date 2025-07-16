@@ -14,6 +14,7 @@ import HelpDialog from "./components/HelpDialog";
 import Confetti from "react-confetti";
 import { motion } from "framer-motion";
 import { Autocomplete, TextField } from "@mui/material";
+
 // Tema
 const themeLight = createTheme({
   palette: {
@@ -97,7 +98,6 @@ function getStats() {
 }
 
 const BASE_SCORE = 100;
-const INFO_PENALTY = 20;
 const WRONG_PENALTY = 10;
 const MAX_TRIES = 5;
 
@@ -119,103 +119,147 @@ export default function App() {
   const [score, setScore] = useState(BASE_SCORE);
   const [remainingTries, setRemainingTries] = useState(MAX_TRIES);
 
-  // Vitals ve infoList
-  const vitals = useMemo(() => selectedVaka.vitals && selectedVaka.vitals[lang], [selectedVaka, lang]);
-  const infoList = [
-    {
-      label: { tr: "Hikaye", en: "History" },
-      value: selectedVaka.history[lang]
-    },
-    {
-      label: { tr: "Özgeçmiş, Alışkanlık, İlaç, Aile", en: "Background, Habits, Medications, Family" },
-      value: Array.isArray(selectedVaka.background[lang])
-        ? (
+  // Adımlar (steps) ve info list
+  const steps = selectedVaka.steps || [];
+  // Step'e karşılık gelen datayı ve gösterimi döndür
+  function getStepValue(step) {
+    const key = step.key;
+    // Her key için nasıl gösterileceğini burada tanımla
+    switch (key) {
+      case "history":
+        return selectedVaka.history?.[lang];
+      case "background":
+        return (
           <ul style={{ margin: 0, paddingLeft: 18 }}>
-            {selectedVaka.background[lang].map((item, i) => (
-              <li key={i}>{item}</li>
-            ))}
+            {selectedVaka.background && selectedVaka.background[lang] &&
+              Object.entries(selectedVaka.background[lang]).map(([title, value], idx) => (
+                <li key={idx}><b>{title}:</b> {value}</li>
+              ))}
           </ul>
-        )
-        : selectedVaka.background[lang]
-    },
-    {
-      label: { tr: "Fizik Muayene", en: "Physical Exam" },
-      value: selectedVaka.physical_exam[lang]
-    },
-    {
-      label: { tr: "Laboratuvar", en: "Laboratory" },
-      value: (
-        <Box>
-          {selectedVaka.labs && Object.keys(selectedVaka.labs).length > 0 && (
-            <>
-              <Box sx={{ fontWeight: 600, color: theme => theme.palette.text.primary, mt: 1 }}>
-              {lang === "tr" ? "Biyokimya:" : "Biochemistry:"}
-              </Box>
-              <ul style={{ margin: "4px 0 8px 18px" }}>
-                {Object.entries(selectedVaka.labs).map(([k, v], i) => (
-                  <li key={i}>{k}: {v}</li>
-                ))}
-              </ul>
-            </>
-          )}
-          {selectedVaka.blood_gas && Object.keys(selectedVaka.blood_gas).length > 0 && (
-            <>
-              <Box sx={{ fontWeight: 600, color: theme => theme.palette.text.primary }}>
-                {lang === "tr" ? "Kan Gazı:" : "Blood Gas:"}
-              </Box>
-              <ul style={{ margin: "4px 0 8px 18px" }}>
-                {Object.entries(selectedVaka.blood_gas).map(([k, v], i) => (
-                  <li key={i}>{k}: {v}</li>
-                ))}
-              </ul>
-            </>
-          )}
-          {selectedVaka.hemogram && Object.keys(selectedVaka.hemogram).length > 0 && (
-            <>
-              <Box sx={{ fontWeight: 600, color: theme => theme.palette.text.primary }}>
-                Hemogram:
-              </Box>
-              <ul style={{ margin: "4px 0 8px 18px" }}>
-                {Object.entries(selectedVaka.hemogram).map(([k, v], i) => (
-                  <li key={i}>{k}: {String(v)}</li>
-                ))}
-              </ul>
-            </>
-          )}
-          {selectedVaka.urinalysis && Object.keys(selectedVaka.urinalysis).length > 0 && (
-            <>
-              <Box sx={{ fontWeight: 600, color: theme => theme.palette.text.primary }}>
-                {lang === "tr" ? "İdrar:" : "Urinalysis:"}
-              </Box>
-              <ul style={{ margin: "4px 0 8px 18px" }}>
-                {Object.entries(selectedVaka.urinalysis).map(([k, v], i) => (
-                  <li key={i}>{k}: {v}</li>
-                ))}
-              </ul>
-            </>
-          )}
-        </Box>
-      )
-    },
-    {
-      label: { tr: "EKG & Görüntüleme", en: "ECG & Imaging" },
-      value: [selectedVaka.ekg ? selectedVaka.ekg[lang] : "", selectedVaka.imaging ? selectedVaka.imaging[lang] : ""].filter(Boolean).join(" | ")
-    },
-    ...(selectedVaka.course && selectedVaka.course[lang]
-      ? [{
-          label: { tr: "Klinik Seyir", en: "Clinical Course" },
-          value: selectedVaka.course[lang]
-        }]
-      : [])
-  ];
+        );
+      case "physical_exam":
+        return (
+          <ul style={{ margin: 0, paddingLeft: 18 }}>
+            {selectedVaka.physical_exam && selectedVaka.physical_exam[lang] &&
+              Object.entries(selectedVaka.physical_exam[lang]).map(([title, value], idx) => (
+                <li key={idx}><b>{title}:</b> {value}</li>
+              ))}
+          </ul>
+        );
+      case "fast_tests":
+        return (
+          <Box>
+            {/* Kan Gazı */}
+            {selectedVaka.fast_tests?.blood_gas && (
+              <>
+                <Box sx={{ fontWeight: 600, color: theme => theme.palette.text.primary, mt: 1 }}>
+                  {lang === "tr" ? "Kan Gazı:" : "Blood Gas:"}
+                </Box>
+                <ul style={{ margin: "4px 0 8px 18px" }}>
+                  {Object.entries(selectedVaka.fast_tests.blood_gas).map(([k, v], i) => (
+                    <li key={i}>{k}: {v.value} <span style={{ color: "#888", fontSize: "0.96em" }}>({v.ref})</span></li>
+                  ))}
+                </ul>
+              </>
+            )}
+            {/* EKG */}
+            {selectedVaka.fast_tests?.ekg && selectedVaka.fast_tests.ekg[lang] && (
+              <>
+                <Box sx={{ fontWeight: 600, color: theme => theme.palette.text.primary }}>
+                  EKG
+                </Box>
+                <Typography variant="body2" sx={{ ml: 2 }}>
+                  {selectedVaka.fast_tests.ekg[lang]}
+                </Typography>
+              </>
+            )}
+            {/* Periferik Yayma */}
+            {selectedVaka.fast_tests?.peripheral_smear && selectedVaka.fast_tests.peripheral_smear[lang] && (
+              <>
+                <Box sx={{ fontWeight: 600, color: theme => theme.palette.text.primary }}>
+                  {lang === "tr" ? "Periferik Yayma:" : "Peripheral Smear:"}
+                </Box>
+                <Typography variant="body2" sx={{ ml: 2 }}>
+                  {selectedVaka.fast_tests.peripheral_smear[lang]}
+                </Typography>
+              </>
+            )}
+          </Box>
+        );
+      case "labs":
+        return (
+          <Box>
+            {/* Hemogram */}
+            {selectedVaka.labs?.hemogram && (
+              <>
+                <Box sx={{ fontWeight: 600, color: theme => theme.palette.text.primary, mt: 1 }}>
+                  {lang === "tr" ? "Hemogram:" : "Hemogram:"}
+                </Box>
+                <ul style={{ margin: "4px 0 8px 18px" }}>
+                  {Object.entries(selectedVaka.labs.hemogram).map(([k, v], i) => (
+                    <li key={i}>{k}: {v.value} <span style={{ color: "#888", fontSize: "0.96em" }}>({v.ref})</span></li>
+                  ))}
+                </ul>
+              </>
+            )}
+            {/* Biyokimya */}
+            {selectedVaka.labs?.biochemistry && selectedVaka.labs.biochemistry[lang] && (
+              <>
+                <Box sx={{ fontWeight: 600, color: theme => theme.palette.text.primary }}>
+                  {lang === "tr" ? "Biyokimya:" : "Biochemistry:"}
+                </Box>
+                <ul style={{ margin: "4px 0 8px 18px" }}>
+                  {Object.entries(selectedVaka.labs.biochemistry[lang]).map(([k, v], i) => (
+                    <li key={i}>{k}: {v.value} <span style={{ color: "#888", fontSize: "0.96em" }}>({v.ref})</span></li>
+                  ))}
+                </ul>
+              </>
+            )}
+            {/* İdrar */}
+            {selectedVaka.labs?.urinalysis && selectedVaka.labs.urinalysis[lang] && (
+              <>
+                <Box sx={{ fontWeight: 600, color: theme => theme.palette.text.primary }}>
+                  {lang === "tr" ? "İdrar:" : "Urinalysis:"}
+                </Box>
+                <ul style={{ margin: "4px 0 8px 18px" }}>
+                  {Object.entries(selectedVaka.labs.urinalysis[lang]).map(([k, v], i) => (
+                    <li key={i}>{k}: {v.value} <span style={{ color: "#888", fontSize: "0.96em" }}>({v.ref})</span></li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </Box>
+        );
+      case "coombs_tests":
+        return (
+          <ul style={{ margin: 0, paddingLeft: 18 }}>
+            {selectedVaka.coombs_tests && selectedVaka.coombs_tests[lang] &&
+              Object.entries(selectedVaka.coombs_tests[lang]).map(([title, value], idx) => (
+                <li key={idx}><b>{title}:</b> {value}</li>
+              ))}
+          </ul>
+        );
+      case "imaging":
+        return selectedVaka.imaging?.[lang];
+      case "course":
+        return selectedVaka.course?.[lang];
+      default:
+        return null;
+    }
+  }
+
+  // Toplam adım sayısı
+  const totalStepCount = steps.length;
 
   // App içi efektler
   useEffect(() => {
     const solved = getSolvedCases();
     if (solved[selectedVaka.date]) {
       setResult(solved[selectedVaka.date]);
-      setInfoStep(infoList.length);
-      setScore(BASE_SCORE - infoList.length * INFO_PENALTY);
+      setInfoStep(totalStepCount);
+      // Tüm step'lerin toplam penalty'sini al
+      const totalPenalty = steps.reduce((acc, step) => acc + (step.penalty || 0), 0);
+      setScore(BASE_SCORE - totalPenalty);
       setRemainingTries(0);
     } else {
       setResult(null);
@@ -227,13 +271,19 @@ export default function App() {
     // eslint-disable-next-line
   }, [selectedVaka]);
 
+  // Her bilgi adımı veya yanlış deneme sonrası skoru güncelle
   useEffect(() => {
-    setScore(BASE_SCORE - infoStep * INFO_PENALTY - (MAX_TRIES - remainingTries) * WRONG_PENALTY);
+    // O ana kadar açılan tüm step'lerin cezasını topla
+    const openedPenalty = steps
+      .slice(0, infoStep)
+      .reduce((acc, step) => acc + (step.penalty || 0), 0);
+    setScore(BASE_SCORE - openedPenalty - (MAX_TRIES - remainingTries) * WRONG_PENALTY);
     // eslint-disable-next-line
-  }, [infoStep, remainingTries]);
+  }, [infoStep, remainingTries, steps]);
 
+  // Adım gösterimi
   const handleShowMore = () => {
-    if (infoStep < infoList.length) {
+    if (infoStep < totalStepCount) {
       setInfoStep(infoStep + 1);
     }
   };
@@ -259,7 +309,7 @@ export default function App() {
       };
       setResult(newResult);
       setSolvedCase(selectedVaka.date, { ...newResult, justSolved: false });
-      setInfoStep(infoList.length);
+      setInfoStep(totalStepCount);
       setRemainingTries(0);
       setStatsOpen(true);
 
@@ -292,7 +342,7 @@ export default function App() {
         };
         setResult(newResult);
         setSolvedCase(selectedVaka.date, newResult);
-        setInfoStep(infoList.length);
+        setInfoStep(totalStepCount);
         setStatsOpen(true);
       } else {
         newResult = {
@@ -366,14 +416,23 @@ export default function App() {
               {lang === "tr" ? "Vaka" : "Case"} ({selectedVaka.date})
             </Typography>
 
-            <DemographicsCard selectedVaka={selectedVaka} lang={lang} vitals={vitals} />
+            <DemographicsCard selectedVaka={selectedVaka} lang={lang} vitals={selectedVaka.vitals?.[lang]} />
 
-            {infoList.slice(0, infoStep).map((item, idx) =>
-              <InfoStepCard item={item} idx={idx} key={idx} lang={lang} />
+            {/* Steps ve Info Kartları */}
+            {steps.slice(0, infoStep).map((step, idx) =>
+              <InfoStepCard
+                key={idx}
+                item={{
+                  label: step.label,
+                  value: getStepValue(step)
+                }}
+                idx={idx}
+                lang={lang}
+              />
             )}
 
             {/* Bilgi açma butonu */}
-            {infoStep < infoList.length && !(result?.success || result?.outOfTries) && (
+            {infoStep < totalStepCount && !(result?.success || result?.outOfTries) && (
               <Button
                 variant="contained"
                 color="secondary"
@@ -381,7 +440,7 @@ export default function App() {
                 onClick={handleShowMore}
               >
                 {lang === "tr" ? "Daha fazla bilgi göster" : "Show more info"}
-                &nbsp;(-{INFO_PENALTY} {lang === "tr" ? "puan" : "points"})
+                &nbsp;(-{steps[infoStep]?.penalty || 0} {lang === "tr" ? "puan" : "points"})
               </Button>
             )}
 
@@ -409,24 +468,24 @@ export default function App() {
 
             {/* Tanı seçimi */}
             <Box sx={{ my: 2 }}>
-  <Autocomplete
-    options={tanilar.map(t => t[lang])}
-    value={selectedTanı}
-    onChange={(e, newValue) => setSelectedTanı(newValue)}
-    renderInput={(params) => <TextField {...params} label={lang === "tr" ? "Tanı seç" : "Select diagnosis"} variant="outlined" />}
-    disabled={!!getSolvedCases()[selectedVaka.date]}
-    sx={{ mb: 2 }}
-  />
-  <Button
-    variant="contained"
-    color="primary"
-    sx={{ mt: 1, fontWeight: 600, px: 4, py: 1, fontSize: "1rem" }}
-    onClick={handleSubmit}
-    disabled={!!getSolvedCases()[selectedVaka.date]}
-  >
-    {lang === "tr" ? "Gönder" : "Submit"}
-  </Button>
-</Box>
+              <Autocomplete
+                options={tanilar.map(t => t[lang])}
+                value={selectedTanı}
+                onChange={(e, newValue) => setSelectedTanı(newValue)}
+                renderInput={(params) => <TextField {...params} label={lang === "tr" ? "Tanı seç" : "Select diagnosis"} variant="outlined" />}
+                disabled={!!getSolvedCases()[selectedVaka.date]}
+                sx={{ mb: 2 }}
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{ mt: 1, fontWeight: 600, px: 4, py: 1, fontSize: "1rem" }}
+                onClick={handleSubmit}
+                disabled={!!getSolvedCases()[selectedVaka.date]}
+              >
+                {lang === "tr" ? "Gönder" : "Submit"}
+              </Button>
+            </Box>
 
             {/* Sonuç ve açıklama */}
             {result && (
