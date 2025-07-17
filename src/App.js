@@ -15,6 +15,50 @@ import Confetti from "react-confetti";
 import { motion } from "framer-motion";
 import { Autocomplete, TextField } from "@mui/material";
 
+
+//stepler
+import StepHistory from "./components/steps/StepHistory";
+import StepBackground from "./components/steps/StepBackground";
+import StepPhysicalExam from "./components/steps/StepPhysicalExam";
+import StepFastTest from "./components/steps/StepFastTest";
+import StepLab from "./components/steps/StepLab";
+import StepImaging from "./components/steps/StepImaging";
+import StepCourse from "./components/steps/StepCourse";
+// Diğer stepler eklenebilir
+const stepComponents = {
+  history: StepHistory,
+  background: StepBackground,
+  physical_exam: StepPhysicalExam,
+  fast_tests: StepFastTest,
+  labs: StepLab,
+  imaging: StepImaging,
+  course: StepCourse
+};
+
+function renderStep(step, selectedVaka, lang) {
+  const Comp = stepComponents[step.key];
+  if (!Comp) return null;
+  // Her componente uygun prop'ları geçiriyoruz:
+  switch (step.key) {
+    case "history":
+      return <Comp data={selectedVaka.history?.[lang]} />;
+    case "background":
+      return <Comp data={selectedVaka.background?.[lang]} />;
+    case "physical_exam":
+      return <Comp data={selectedVaka.physical_exam?.[lang]} />;
+    case "fast_tests":
+      return <Comp data={selectedVaka.fast_tests} lang={lang} />;
+    case "labs":
+      return <Comp data={selectedVaka.labs} lang={lang} />;
+    case "imaging":
+      return <Comp data={selectedVaka.imaging?.[lang]} />;
+    case "course":
+      return <Comp data={selectedVaka.course?.[lang]} />;
+    default:
+      return null;
+  }
+}
+
 // Tema
 const themeLight = createTheme({
   palette: {
@@ -60,6 +104,23 @@ function setSolvedCase(date, result) {
   solved[date] = result;
   localStorage.setItem("solvedCases", JSON.stringify(solved));
 }
+
+// YENİ: Step ilerlemesini ve kalan hakkı localStorage'dan okuma/yazma
+function getCaseProgress(date) {
+  const progress = JSON.parse(localStorage.getItem("caseProgress") || "{}");
+  return progress[date] || null;
+}
+function setCaseProgress(date, { infoStep, remainingTries }) {
+  const progress = JSON.parse(localStorage.getItem("caseProgress") || "{}");
+  progress[date] = { infoStep, remainingTries };
+  localStorage.setItem("caseProgress", JSON.stringify(progress));
+}
+function clearCaseProgress(date) {
+  const progress = JSON.parse(localStorage.getItem("caseProgress") || "{}");
+  delete progress[date];
+  localStorage.setItem("caseProgress", JSON.stringify(progress));
+}
+
 function getStats() {
   const solvedCases = getSolvedCases();
   const solvedDates = Object.keys(solvedCases).sort();
@@ -113,181 +174,69 @@ export default function App() {
   // Vaka seçimi ve state
   const todayVaka = useMemo(getTodayOrClosestCase, []);
   const [selectedVaka, setSelectedVaka] = useState(todayVaka);
-  const [infoStep, setInfoStep] = useState(0);
+
+  // YENİ: infoStep ve remainingTries progress'i localStorage'dan okuyarak başlatılır
+  const initialProgress = getCaseProgress(todayVaka.date) || {};
+  const [infoStep, setInfoStep] = useState(initialProgress.infoStep ?? 0);
+  const [remainingTries, setRemainingTries] = useState(initialProgress.remainingTries ?? MAX_TRIES);
+
   const [selectedTanı, setSelectedTanı] = useState("");
   const [result, setResult] = useState(null);
   const [score, setScore] = useState(BASE_SCORE);
-  const [remainingTries, setRemainingTries] = useState(MAX_TRIES);
 
-  // Adımlar (steps) ve info list
   const steps = selectedVaka.steps || [];
-  // Step'e karşılık gelen datayı ve gösterimi döndür
-  function getStepValue(step) {
-    const key = step.key;
-    // Her key için nasıl gösterileceğini burada tanımla
-    switch (key) {
-      case "history":
-        return selectedVaka.history?.[lang];
-      case "background":
-        return (
-          <ul style={{ margin: 0, paddingLeft: 18 }}>
-            {selectedVaka.background && selectedVaka.background[lang] &&
-              Object.entries(selectedVaka.background[lang]).map(([title, value], idx) => (
-                <li key={idx}><b>{title}:</b> {value}</li>
-              ))}
-          </ul>
-        );
-      case "physical_exam":
-        return (
-          <ul style={{ margin: 0, paddingLeft: 18 }}>
-            {selectedVaka.physical_exam && selectedVaka.physical_exam[lang] &&
-              Object.entries(selectedVaka.physical_exam[lang]).map(([title, value], idx) => (
-                <li key={idx}><b>{title}:</b> {value}</li>
-              ))}
-          </ul>
-        );
-      case "fast_tests":
-        return (
-          <Box>
-            {/* Kan Gazı */}
-            {selectedVaka.fast_tests?.blood_gas && (
-              <>
-                <Box sx={{ fontWeight: 600, color: theme => theme.palette.text.primary, mt: 1 }}>
-                  {lang === "tr" ? "Kan Gazı:" : "Blood Gas:"}
-                </Box>
-                <ul style={{ margin: "4px 0 8px 18px" }}>
-                  {Object.entries(selectedVaka.fast_tests.blood_gas).map(([k, v], i) => (
-                    <li key={i}>{k}: {v.value} <span style={{ color: "#888", fontSize: "0.96em" }}>({v.ref})</span></li>
-                  ))}
-                </ul>
-              </>
-            )}
-            {/* EKG */}
-            {selectedVaka.fast_tests?.ekg && selectedVaka.fast_tests.ekg[lang] && (
-              <>
-                <Box sx={{ fontWeight: 600, color: theme => theme.palette.text.primary }}>
-                  EKG
-                </Box>
-                <Typography variant="body2" sx={{ ml: 2 }}>
-                  {selectedVaka.fast_tests.ekg[lang]}
-                </Typography>
-              </>
-            )}
-            {/* Periferik Yayma */}
-            {selectedVaka.fast_tests?.peripheral_smear && selectedVaka.fast_tests.peripheral_smear[lang] && (
-              <>
-                <Box sx={{ fontWeight: 600, color: theme => theme.palette.text.primary }}>
-                  {lang === "tr" ? "Periferik Yayma:" : "Peripheral Smear:"}
-                </Box>
-                <Typography variant="body2" sx={{ ml: 2 }}>
-                  {selectedVaka.fast_tests.peripheral_smear[lang]}
-                </Typography>
-              </>
-            )}
-          </Box>
-        );
-      case "labs":
-        return (
-          <Box>
-            {/* Hemogram */}
-            {selectedVaka.labs?.hemogram && (
-              <>
-                <Box sx={{ fontWeight: 600, color: theme => theme.palette.text.primary, mt: 1 }}>
-                  {lang === "tr" ? "Hemogram:" : "Hemogram:"}
-                </Box>
-                <ul style={{ margin: "4px 0 8px 18px" }}>
-                  {Object.entries(selectedVaka.labs.hemogram).map(([k, v], i) => (
-                    <li key={i}>{k}: {v.value} <span style={{ color: "#888", fontSize: "0.96em" }}>({v.ref})</span></li>
-                  ))}
-                </ul>
-              </>
-            )}
-            {/* Biyokimya */}
-            {selectedVaka.labs?.biochemistry && selectedVaka.labs.biochemistry[lang] && (
-              <>
-                <Box sx={{ fontWeight: 600, color: theme => theme.palette.text.primary }}>
-                  {lang === "tr" ? "Biyokimya:" : "Biochemistry:"}
-                </Box>
-                <ul style={{ margin: "4px 0 8px 18px" }}>
-                  {Object.entries(selectedVaka.labs.biochemistry[lang]).map(([k, v], i) => (
-                    <li key={i}>{k}: {v.value} <span style={{ color: "#888", fontSize: "0.96em" }}>({v.ref})</span></li>
-                  ))}
-                </ul>
-              </>
-            )}
-            {/* İdrar */}
-            {selectedVaka.labs?.urinalysis && selectedVaka.labs.urinalysis[lang] && (
-              <>
-                <Box sx={{ fontWeight: 600, color: theme => theme.palette.text.primary }}>
-                  {lang === "tr" ? "İdrar:" : "Urinalysis:"}
-                </Box>
-                <ul style={{ margin: "4px 0 8px 18px" }}>
-                  {Object.entries(selectedVaka.labs.urinalysis[lang]).map(([k, v], i) => (
-                    <li key={i}>{k}: {v.value} <span style={{ color: "#888", fontSize: "0.96em" }}>({v.ref})</span></li>
-                  ))}
-                </ul>
-              </>
-            )}
-          </Box>
-        );
-      case "coombs_tests":
-        return (
-          <ul style={{ margin: 0, paddingLeft: 18 }}>
-            {selectedVaka.coombs_tests && selectedVaka.coombs_tests[lang] &&
-              Object.entries(selectedVaka.coombs_tests[lang]).map(([title, value], idx) => (
-                <li key={idx}><b>{title}:</b> {value}</li>
-              ))}
-          </ul>
-        );
-      case "imaging":
-        return selectedVaka.imaging?.[lang];
-      case "course":
-        return selectedVaka.course?.[lang];
-      default:
-        return null;
-    }
-  }
 
-  // Toplam adım sayısı
+
+
   const totalStepCount = steps.length;
 
-  // App içi efektler
+  // Eğer vaka değişirse veya sayfa ilk yüklenirse, localStorage'dan infoStep ve remainingTries oku!
   useEffect(() => {
     const solved = getSolvedCases();
     if (solved[selectedVaka.date]) {
       setResult(solved[selectedVaka.date]);
       setInfoStep(totalStepCount);
-      // Tüm step'lerin toplam penalty'sini al
+      setRemainingTries(0);
+      // Skor hesaplama
       const totalPenalty = steps.reduce((acc, step) => acc + (step.penalty || 0), 0);
       setScore(BASE_SCORE - totalPenalty);
-      setRemainingTries(0);
+      clearCaseProgress(selectedVaka.date);
     } else {
+      const progress = getCaseProgress(selectedVaka.date);
       setResult(null);
-      setInfoStep(0);
-      setScore(BASE_SCORE);
-      setRemainingTries(MAX_TRIES);
+      setInfoStep(progress?.infoStep ?? 0);
+      setRemainingTries(progress?.remainingTries ?? MAX_TRIES);
+      setScore(BASE_SCORE); // Burada puan hesaplaması useEffect ile aşağıda güncelleniyor
     }
     setSelectedTanı("");
     // eslint-disable-next-line
   }, [selectedVaka]);
 
-  // Her bilgi adımı veya yanlış deneme sonrası skoru güncelle
+  // infoStep veya remainingTries değiştikçe, progress'i kaydet ve skor hesapla
   useEffect(() => {
-    // O ana kadar açılan tüm step'lerin cezasını topla
     const openedPenalty = steps
       .slice(0, infoStep)
       .reduce((acc, step) => acc + (step.penalty || 0), 0);
     setScore(BASE_SCORE - openedPenalty - (MAX_TRIES - remainingTries) * WRONG_PENALTY);
+
+    // Vaka çözülmemişse progress kaydet
+    const solved = getSolvedCases();
+    if (!solved[selectedVaka.date]) {
+      setCaseProgress(selectedVaka.date, { infoStep, remainingTries });
+    }
     // eslint-disable-next-line
   }, [infoStep, remainingTries, steps]);
 
-  // Adım gösterimi
+  // Step açınca kaydı güncelle
   const handleShowMore = () => {
     if (infoStep < totalStepCount) {
-      setInfoStep(infoStep + 1);
+      const newStep = infoStep + 1;
+      setInfoStep(newStep);
+      setCaseProgress(selectedVaka.date, { infoStep: newStep, remainingTries });
     }
   };
 
+  // Tanı gönderimi
   const handleSubmit = () => {
     if (!selectedTanı) return;
     const solved = getSolvedCases();
@@ -312,6 +261,7 @@ export default function App() {
       setInfoStep(totalStepCount);
       setRemainingTries(0);
       setStatsOpen(true);
+      clearCaseProgress(selectedVaka.date);
 
       // Günlük leaderboard kaydet
       const todayStr = selectedVaka.date;
@@ -331,6 +281,7 @@ export default function App() {
     } else {
       const yeniTries = remainingTries - 1;
       setRemainingTries(yeniTries);
+      setCaseProgress(selectedVaka.date, { infoStep, remainingTries: yeniTries });
       if (yeniTries === 0) {
         newResult = {
           success: false,
@@ -344,6 +295,7 @@ export default function App() {
         setSolvedCase(selectedVaka.date, newResult);
         setInfoStep(totalStepCount);
         setStatsOpen(true);
+        clearCaseProgress(selectedVaka.date);
       } else {
         newResult = {
           success: false,
@@ -357,7 +309,6 @@ export default function App() {
     }
   };
 
-  // Bilgi blokları ikonlu ve gölgeli
   function SolvedInfo() {
     if (!result) return null;
     const solved = getSolvedCases();
@@ -420,19 +371,19 @@ export default function App() {
 
             {/* Steps ve Info Kartları */}
             {steps.slice(0, infoStep).map((step, idx) =>
-              <InfoStepCard
-                key={idx}
-                item={{
-                  label: step.label,
-                  value: getStepValue(step)
-                }}
-                idx={idx}
-                lang={lang}
-              />
-            )}
+  <InfoStepCard
+    key={idx}
+    item={{
+      label: step.label,
+      value: renderStep(step, selectedVaka, lang)
+    }}
+    idx={idx}
+    lang={lang}
+  />
+)}
 
             {/* Bilgi açma butonu */}
-            {infoStep < totalStepCount && !(result?.success || result?.outOfTries) && (
+            {infoStep < steps.length && !(result?.success || result?.outOfTries) && (
               <Button
                 variant="contained"
                 color="secondary"
