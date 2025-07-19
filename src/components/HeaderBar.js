@@ -28,7 +28,16 @@ export default function HeaderBar({
 
   return (
     <>
-      <AppBar position="static" elevation={1} color="inherit" sx={{ mb: 3 }}>
+      <AppBar
+  position="fixed"
+  elevation={2}
+  color="inherit"
+  sx={{
+    background: theme => theme.palette.mode === "dark"
+      ? "linear-gradient(90deg, #23272b 60%, #1a1d23 100%)"
+      : "linear-gradient(90deg, #f6fbff 60%, #fffde7 100%)"
+  }}
+>
         <Toolbar sx={{ minHeight: 64 }}>
           {/* Sol: Menü ikonu */}
           <IconButton
@@ -44,17 +53,18 @@ export default function HeaderBar({
 
           {/* Orta: Uygulama Adı */}
           <Typography
-            variant="h5"
-            sx={{
-              flex: 1,
-              fontWeight: 800,
-              textAlign: "center",
-              letterSpacing: 1,
-              userSelect: "none"
-            }}
-          >
-            Guess The Case
-          </Typography>
+  variant="h5"
+  sx={{
+    flex: 1,
+    fontWeight: 800,
+    textAlign: "center",
+    letterSpacing: 1,
+    userSelect: "none",
+    fontSize: { xs: "1.2rem", sm: "1.6rem", md: "2rem" } // Mobilde küçük, tablette/pc'de büyük!
+  }}
+>
+  Guess The Case
+</Typography>
 
           <IconButton color="inherit" onClick={onOpenLeaderboard}>
           <LeaderboardIcon />

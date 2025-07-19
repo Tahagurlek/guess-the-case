@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
+import StarIcon from "@mui/icons-material/Star";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Box, Card, CardContent, Typography, Button } from "@mui/material";
 import vakalar from "./data/vakalar.json";
@@ -14,9 +15,9 @@ import HelpDialog from "./components/HelpDialog";
 import Confetti from "react-confetti";
 import { motion } from "framer-motion";
 import { Autocomplete, TextField } from "@mui/material";
-
-
-//stepler
+import DiagnosisSelect from "./components/DiagnosisSelect";
+import DiagnosisSelectVirtual from "./components/DiagnosisSelectVirtual";
+// stepler
 import StepHistory from "./components/steps/StepHistory";
 import StepBackground from "./components/steps/StepBackground";
 import StepPhysicalExam from "./components/steps/StepPhysicalExam";
@@ -24,7 +25,8 @@ import StepFastTest from "./components/steps/StepFastTest";
 import StepLab from "./components/steps/StepLab";
 import StepImaging from "./components/steps/StepImaging";
 import StepCourse from "./components/steps/StepCourse";
-// Diğer stepler eklenebilir
+
+// Step componentleri eşleştiriliyor
 const stepComponents = {
   history: StepHistory,
   background: StepBackground,
@@ -38,7 +40,6 @@ const stepComponents = {
 function renderStep(step, selectedVaka, lang) {
   const Comp = stepComponents[step.key];
   if (!Comp) return null;
-  // Her componente uygun prop'ları geçiriyoruz:
   switch (step.key) {
     case "history":
       return <Comp data={selectedVaka.history?.[lang]} />;
@@ -64,26 +65,33 @@ const themeLight = createTheme({
   palette: {
     mode: "light",
     primary: { main: "#1976d2" },
-    secondary: { main: "#ffd600" }
+    secondary: { main: "#ffd600" },
+    background: { default: "#f6fbff" }
+  },
+  typography: {
+    fontFamily: "Inter, Roboto, Arial, sans-serif"
   }
 });
 const themeDark = createTheme({
   palette: {
     mode: "dark",
     primary: { main: "#1976d2" },
-    secondary: { main: "#ffd600" }
-  }
+    secondary: { main: "#ffd600" },
+    background: {
+      default: "#20272e", // ana arka plan
+      paper: "#23272b"    // kart arka planı
+    }
+  },
+  typography: { fontFamily: "Inter, Roboto, Arial, sans-serif" }
 });
 
-// Tarih stringi
+// Yardımcı fonksiyonlar
 function getTodayStr() {
   const today = new Date();
   const tzOff = today.getTimezoneOffset() * 60000;
   const localISO = new Date(today - tzOff).toISOString().slice(0, 10);
   return localISO;
 }
-
-// Günün vakasını veya en yakını döndür
 function getTodayOrClosestCase() {
   const todayStr = getTodayStr();
   const sortedVakalar = [...vakalar].sort((a, b) => a.date.localeCompare(b.date));
@@ -94,8 +102,6 @@ function getTodayOrClosestCase() {
   }
   return selected;
 }
-
-// LocalStorage yardımcıları
 function getSolvedCases() {
   return JSON.parse(localStorage.getItem("solvedCases") || "{}");
 }
@@ -104,8 +110,6 @@ function setSolvedCase(date, result) {
   solved[date] = result;
   localStorage.setItem("solvedCases", JSON.stringify(solved));
 }
-
-// YENİ: Step ilerlemesini ve kalan hakkı localStorage'dan okuma/yazma
 function getCaseProgress(date) {
   const progress = JSON.parse(localStorage.getItem("caseProgress") || "{}");
   return progress[date] || null;
@@ -120,7 +124,6 @@ function clearCaseProgress(date) {
   delete progress[date];
   localStorage.setItem("caseProgress", JSON.stringify(progress));
 }
-
 function getStats() {
   const solvedCases = getSolvedCases();
   const solvedDates = Object.keys(solvedCases).sort();
@@ -171,11 +174,9 @@ export default function App() {
   const [leaderboardOpen, setLeaderboardOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
 
-  // Vaka seçimi ve state
   const todayVaka = useMemo(getTodayOrClosestCase, []);
   const [selectedVaka, setSelectedVaka] = useState(todayVaka);
 
-  // YENİ: infoStep ve remainingTries progress'i localStorage'dan okuyarak başlatılır
   const initialProgress = getCaseProgress(todayVaka.date) || {};
   const [infoStep, setInfoStep] = useState(initialProgress.infoStep ?? 0);
   const [remainingTries, setRemainingTries] = useState(initialProgress.remainingTries ?? MAX_TRIES);
@@ -185,19 +186,14 @@ export default function App() {
   const [score, setScore] = useState(BASE_SCORE);
 
   const steps = selectedVaka.steps || [];
-
-
-
   const totalStepCount = steps.length;
 
-  // Eğer vaka değişirse veya sayfa ilk yüklenirse, localStorage'dan infoStep ve remainingTries oku!
   useEffect(() => {
     const solved = getSolvedCases();
     if (solved[selectedVaka.date]) {
       setResult(solved[selectedVaka.date]);
       setInfoStep(totalStepCount);
       setRemainingTries(0);
-      // Skor hesaplama
       const totalPenalty = steps.reduce((acc, step) => acc + (step.penalty || 0), 0);
       setScore(BASE_SCORE - totalPenalty);
       clearCaseProgress(selectedVaka.date);
@@ -206,20 +202,18 @@ export default function App() {
       setResult(null);
       setInfoStep(progress?.infoStep ?? 0);
       setRemainingTries(progress?.remainingTries ?? MAX_TRIES);
-      setScore(BASE_SCORE); // Burada puan hesaplaması useEffect ile aşağıda güncelleniyor
+      setScore(BASE_SCORE);
     }
     setSelectedTanı("");
     // eslint-disable-next-line
   }, [selectedVaka]);
 
-  // infoStep veya remainingTries değiştikçe, progress'i kaydet ve skor hesapla
   useEffect(() => {
     const openedPenalty = steps
       .slice(0, infoStep)
       .reduce((acc, step) => acc + (step.penalty || 0), 0);
     setScore(BASE_SCORE - openedPenalty - (MAX_TRIES - remainingTries) * WRONG_PENALTY);
 
-    // Vaka çözülmemişse progress kaydet
     const solved = getSolvedCases();
     if (!solved[selectedVaka.date]) {
       setCaseProgress(selectedVaka.date, { infoStep, remainingTries });
@@ -227,7 +221,6 @@ export default function App() {
     // eslint-disable-next-line
   }, [infoStep, remainingTries, steps]);
 
-  // Step açınca kaydı güncelle
   const handleShowMore = () => {
     if (infoStep < totalStepCount) {
       const newStep = infoStep + 1;
@@ -236,7 +229,6 @@ export default function App() {
     }
   };
 
-  // Tanı gönderimi
   const handleSubmit = () => {
     if (!selectedTanı) return;
     const solved = getSolvedCases();
@@ -331,9 +323,10 @@ export default function App() {
       <Box sx={{
         minHeight: "100vh",
         background: darkMode
-          ? "linear-gradient(135deg, #181e24 0%, #23272b 100%)"
+          ? "linear-gradient(135deg, #23272b 0%, #293241 100%)"
           : "linear-gradient(135deg, #e3f2fd 0%, #fffde7 100%)",
-        py: 4
+        py: 4,
+        mt: { xs: "64px", sm: "68px" } // Header'ın yüksekliği kadar boşluk bırak
       }}>
         <HeaderBar
           lang={lang}
@@ -346,24 +339,40 @@ export default function App() {
           onOpenLeaderboard={() => setLeaderboardOpen(true)}
           onOpenHelp={() => setHelpOpen(true)}
         />
-        <Card sx={{ p: { xs: 0, md: 1 }, boxShadow: 12, borderRadius: 5, maxWidth: 630, margin: "0 auto" }}>
-          <CardContent sx={{ p: { xs: 1.5, sm: 3 } }}>
+        <Card sx={{
+  p: { xs: 0, md: 2.5 },
+  background: theme => theme.palette.mode === "dark" ? "#23272b" : "#fff",
+  boxShadow: "0 6px 36px #bdbdbd26",
+  borderRadius: 7,
+  maxWidth: 680,
+  margin: "0 auto"
+}}>
+          <CardContent sx={{ p: { xs: 2, sm: 4 } }}>
             {/* Günün vakası rozeti */}
             {selectedVaka.date === todayVaka.date && (
               <Box sx={{
-                mb: 2,
-                px: 2, py: 0.7, borderRadius: 3, display: "inline-block",
-                fontWeight: 800, fontSize: "1.1rem",
-                color: "#fff", background: "linear-gradient(90deg,#1976d2,#ffd600)"
-              }}>
-                {lang === "tr" ? "GÜNÜN VAKASI" : "CASE OF THE DAY"}
-              </Box>
+  display: "inline-flex",
+  alignItems: "center",
+  gap: 1,
+  mb: 2,
+  px: 2.5,
+  py: 0.8,
+  borderRadius: 7,
+  fontWeight: 800,
+  fontSize: "1.08rem",
+  color: "#fff",
+  background: "linear-gradient(90deg, #1976d2 30%, #90caf9 100%)",
+  boxShadow: "0 2px 12px #90caf955"
+}}>
+  <StarIcon sx={{ fontSize: 21, mr: 0.7, color: "#ffd600" }} />
+  {lang === "tr" ? "GÜNÜN VAKASI" : "CASE OF THE DAY"}
+</Box>
             )}
 
             {/* Sonuç info mesajı */}
             <SolvedInfo />
 
-            <Typography variant="h5" sx={{ fontWeight: 700, mb: 2 }}>
+            <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, fontSize: "1.35rem" }}>
               {lang === "tr" ? "Vaka" : "Case"} ({selectedVaka.date})
             </Typography>
 
@@ -371,47 +380,67 @@ export default function App() {
 
             {/* Steps ve Info Kartları */}
             {steps.slice(0, infoStep).map((step, idx) =>
-  <InfoStepCard
-    key={idx}
-    item={{
-      label: step.label,
-      value: renderStep(step, selectedVaka, lang)
-    }}
-    idx={idx}
-    lang={lang}
-  />
-)}
+              <InfoStepCard
+                key={idx}
+                item={{
+                  label: step.label,
+                  value: renderStep(step, selectedVaka, lang)
+                }}
+                idx={idx}
+                lang={lang}
+              />
+            )}
 
             {/* Bilgi açma butonu */}
             {infoStep < steps.length && !(result?.success || result?.outOfTries) && (
               <Button
                 variant="contained"
                 color="secondary"
-                sx={{ my: 2, px: 4, py: 1, fontWeight: 600, fontSize: "1rem" }}
+                sx={{
+    width: "100%",
+    my: 2, px: 4, py: 1.3,
+    fontWeight: 700,
+    fontSize: "1.09rem",
+    borderRadius: 3.5,
+    background: "linear-gradient(90deg, #fff9c4 60%, #ffe082 100%)",
+    color: "#424242",
+    boxShadow: "0 1px 8px #ffd60033",
+    "&:hover": {
+      background: "linear-gradient(90deg, #ffe066 60%, #ffd600 100%)",
+      color: "#1976d2"
+    }
+  }}
                 onClick={handleShowMore}
               >
-                {lang === "tr" ? "Daha fazla bilgi göster" : "Show more info"}
+                {lang === "tr" ? "DAHA FAZLA BİLGİ GÖSTER" : "SHOW MORE INFO"}
                 &nbsp;(-{steps[infoStep]?.penalty || 0} {lang === "tr" ? "puan" : "points"})
               </Button>
             )}
 
             {/* Kalan hak ve puan */}
             {!(result?.success || result?.outOfTries) && (
-              <>
-                <Typography sx={{ my: 1, fontWeight: 500 }}>
-                  {lang === "tr"
-                    ? `Kalan hak: ${remainingTries}/${MAX_TRIES}`
-                    : `Remaining tries: ${remainingTries}/${MAX_TRIES}`}
-                </Typography>
-                <motion.div
-                  animate={result?.success ? { scale: [1, 1.12, 1] } : {}}
-                  transition={{ duration: 0.4 }}
-                >
-                  <Typography variant="h6" sx={{ my: 2 }}>
-                    {lang === "tr" ? "Puan" : "Score"}: {score}
-                  </Typography>
-                </motion.div>
-              </>
+              <Box sx={{
+  display: "flex",
+  alignItems: "center",
+  gap: 1.2,
+  background: "rgba(255, 214, 0, 0.09)",
+  borderRadius: 2.5,
+  px: 2, py: 1,
+  my: 2,
+  fontWeight: 500,
+  fontSize: "1.07rem"
+}}>
+  <span>🟡</span>
+  <Typography>
+    {lang === "tr"
+      ? `Kalan hak: ${remainingTries}/${MAX_TRIES}`
+      : `Remaining tries: ${remainingTries}/${MAX_TRIES}`}
+  </Typography>
+  <span>⭐</span>
+  <Typography variant="h6" sx={{ my: 0 }}>
+    {lang === "tr" ? "Puan" : "Score"}: {score}
+  </Typography>
+</Box>
             )}
 
             {/* Konfeti */}
@@ -419,29 +448,74 @@ export default function App() {
 
             {/* Tanı seçimi */}
             <Box sx={{ my: 2 }}>
-              <Autocomplete
-                options={tanilar.map(t => t[lang])}
-                value={selectedTanı}
-                onChange={(e, newValue) => setSelectedTanı(newValue)}
-                renderInput={(params) => <TextField {...params} label={lang === "tr" ? "Tanı seç" : "Select diagnosis"} variant="outlined" />}
-                disabled={!!getSolvedCases()[selectedVaka.date]}
-                sx={{ mb: 2 }}
-              />
-              <Button
-                variant="contained"
-                color="primary"
-                sx={{ mt: 1, fontWeight: 600, px: 4, py: 1, fontSize: "1rem" }}
-                onClick={handleSubmit}
-                disabled={!!getSolvedCases()[selectedVaka.date]}
-              >
-                {lang === "tr" ? "Gönder" : "Submit"}
-              </Button>
-            </Box>
+  <DiagnosisSelectVirtual
+    options={tanilar.map(t => t[lang])}
+    value={selectedTanı}
+    onChange={(e, newValue) => setSelectedTanı(newValue)}
+    label={lang === "tr" ? "Tanı seç veya ara" : "Search or select diagnosis"}
+    disabled={!!getSolvedCases()[selectedVaka.date]}
+    lang={lang}
+  />
+  <Button
+  variant="contained"
+  color="primary"
+  sx={{
+    mt: 1,
+    width: "100%",
+    fontWeight: 800,
+    px: 4,
+    py: 1.3,
+    fontSize: { xs: "1.09rem", sm: "1.16rem" },
+    letterSpacing: 0.6,
+    borderRadius: 3.5,
+    boxShadow: "0 4px 14px #1976d244",
+    background: theme => theme.palette.mode === "dark"
+  ? "linear-gradient(90deg, #2196f3 0%, #1565c0 100%)"
+  : "linear-gradient(90deg, #1976d2 0%, #64b5f6 100%)",
+    textTransform: "none",
+    transition: "all 0.16s cubic-bezier(.4,0,.2,1)",
+    "&:hover": {
+      background: "linear-gradient(90deg, #1565c0 0%, #2196f3 100%)",
+      boxShadow: "0 6px 18px #1976d299",
+      transform: "scale(1.035)"
+    },
+    "&:active": {
+      background: "linear-gradient(90deg, #0d47a1 0%, #1565c0 100%)",
+      transform: "scale(0.97)"
+    },
+    "&.Mui-disabled": {
+      background: "linear-gradient(90deg, #e0e0e0 0%, #bdbdbd 100%)",
+      color: "#aaa",
+      boxShadow: "none"
+    }
+  }}
+  onClick={handleSubmit}
+  disabled={!!getSolvedCases()[selectedVaka.date]}
+>
+  {lang === "tr" ? "Gönder" : "Submit"}
+</Button>
+</Box>
 
             {/* Sonuç ve açıklama */}
             {result && (
-              <Box sx={{ mt: 2 }}>
-                <Typography color={result.success ? "green" : "red"}>{result.message}</Typography>
+              <Box
+                sx={{
+    mt: 3,
+    p: 2,
+    borderRadius: 3,
+    background: result.success
+      ? (darkMode ? "#284d32" : "#e3ffe1")
+      : (darkMode ? "#422626" : "#ffeaea"),
+    color: result.success
+      ? (darkMode ? "#bbffbb" : "#2e7d32")
+      : (darkMode ? "#ffbdbd" : "#c62828"),
+    boxShadow: "0 2px 8px #cfcfcf33",
+    fontWeight: 700,
+    fontSize: "1.07rem",
+    textAlign: "center"
+  }}
+              >
+                <Typography sx={{ fontWeight: 700 }}>{result.message}</Typography>
                 {result.success && (
                   <>
                     <Typography sx={{ mt: 1 }}>

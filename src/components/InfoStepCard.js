@@ -1,43 +1,50 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
+import { motion } from "framer-motion";
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
-import PsychologyIcon from '@mui/icons-material/Psychology'; // Özgeçmiş/alışkanlık/ilaç
-import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew'; // Fizik muayene (kalp)
-import BiotechIcon from '@mui/icons-material/Biotech'; // Laboratuvar (pipet)
-import MonitorHeartIcon from '@mui/icons-material/MonitorHeart'; // EKG & Görüntüleme
-import TimelineIcon from '@mui/icons-material/Timeline'; // Klinik seyir (zaman çizgisi)
+import PsychologyIcon from '@mui/icons-material/Psychology';
+import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
+import BiotechIcon from '@mui/icons-material/Biotech';
+import MonitorHeartIcon from '@mui/icons-material/MonitorHeart';
+import TimelineIcon from '@mui/icons-material/Timeline';
 
 const icons = [
-  <HistoryEduIcon color="primary" fontSize="large" />,             // Hikaye
-  <PsychologyIcon sx={{ color: "#ef6c00" }} fontSize="large" />,   // Özgeçmiş/alışkanlık/ilaç
-  <AccessibilityNewIcon color="error" fontSize="large" />,                 // Fizik muayene
-  <BiotechIcon sx={{ color: "#43a047" }} fontSize="large" />,      // Laboratuvar
-  <MonitorHeartIcon sx={{ color: "#1976d2" }} fontSize="large" />, // EKG & Görüntüleme
-  <TimelineIcon sx={{ color: "#757575" }} fontSize="large" />      // Klinik seyir
+  <HistoryEduIcon color="primary" fontSize="medium" />,
+  <PsychologyIcon sx={{ color: "#ef6c00" }} fontSize="medium" />,
+  <AccessibilityNewIcon color="error" fontSize="medium" />,
+  <BiotechIcon sx={{ color: "#43a047" }} fontSize="medium" />,
+  <MonitorHeartIcon sx={{ color: "#1976d2" }} fontSize="medium" />,
+  <TimelineIcon sx={{ color: "#757575" }} fontSize="medium" />
 ];
 
 export default function InfoStepCard({ item, idx, lang }) {
   return (
     <Box
+      component={motion.div}
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, delay: idx * 0.08 }}
       sx={{
-        borderRadius: 3,
+        borderRadius: 4,
         background: theme => theme.palette.mode === "dark"
-          ? (idx % 2 === 0 ? "#23272b" : "#202225")
-          : (idx % 2 === 0 ? "#f5f5f5" : "#e3f2fd"),
+  ? (idx % 2 === 0 ? "#252a31" : "#23272b")
+  : (idx % 2 === 0 ? "#f8fafc" : "#e8f0fe"),
         color: theme => theme.palette.text.primary,
-        p: 2,
-        mb: 2,
-        boxShadow: "0 2px 8px #bdbdbd44",
+        p: 2.5,
+        mb: 3,
+        boxShadow: "0 4px 24px #bdbdbd22",
         display: "flex",
         alignItems: "flex-start",
         gap: 2,
-        transition: "background 0.5s"
+        minHeight: 70,
       }}
     >
-      <span style={{ marginTop: 4 }}>{icons[idx % icons.length]}</span>
+      <span style={{ marginTop: 4, flexShrink: 0 }}>{icons[idx % icons.length]}</span>
       <Box>
-        <Typography sx={{ fontWeight: 700, mb: 1 }}>{item.label[lang]}</Typography>
-        <div>{item.value}</div>
+        <Typography sx={{ fontWeight: 700, fontSize: "1.13rem", mb: 1, letterSpacing: 0.1 }}>
+          {item.label[lang]}
+        </Typography>
+        <div style={{ fontSize: "1.04rem", lineHeight: 1.7 }}>{item.value}</div>
       </Box>
     </Box>
   );
