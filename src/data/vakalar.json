@@ -22,7 +22,7 @@
       {
         "key": "fast_tests",
         "label": { "tr": "Hızlı Sonuçlanan Testler", "en": "Fast Results" },
-        "penalty": 15
+        "penalty": 30
       },
       {
         "key": "labs",
@@ -343,5 +343,141 @@
     "references": [
       { "tr": "Harrison's İç Hastalıkları, 21. baskı, ITP bölümü", "en": "Harrison's Internal Medicine, 21st edition, ITP chapter" }
     ]
-  }
+  },
+{
+  "date": "2025-07-19",
+  "demographics": { "age": 41, "sex": { "tr": "Erkek", "en": "Male" } },
+  "chief_complaint": { "tr": "Çarpıntı", "en": "Palpitations" },
+  "steps": [
+    {
+      "key": "history",
+      "label": { "tr": "Hikaye", "en": "History" },
+      "penalty": 15
+    },
+    {
+      "key": "background",
+      "label": { "tr": "Özgeçmiş, Alışkanlık, İlaç, Soygeçmiş", "en": "Background, Habits, Medications, Family" },
+      "penalty": 15
+    },
+    {
+      "key": "physical_exam",
+      "label": { "tr": "Fizik Muayene", "en": "Physical Exam" },
+      "penalty": 25
+    },
+    {
+      "key": "fast_tests",
+      "label": { "tr": "Hızlı Sonuçlanan Testler", "en": "Fast Results" },
+      "penalty": 30
+    },
+    {
+      "key": "labs",
+      "label": { "tr": "Laboratuvar", "en": "Laboratory" },
+      "penalty": 25
+    }
+  ],
+  "vitals": {
+    "tr": { "Ateş": "36.5°C", "Nabız": "152/dk, aritmik", "TA": "115/76 mmHg", "SpO2": "100%", "Solunum": "16/dk" },
+    "en": { "Temp": "36.5°C", "Pulse": "152, irregular", "BP": "115/76 mmHg", "SpO2": "100%", "RR": "16/min" }
+  },
+  "history": {
+    "tr": "Bilinen herhangi bir hastalığı ve düzenli ilaç kullanımı olmayan hasta, 1.5 saat önce başlayan çarpıntı şikayetine 5-10 dakika süren baskı tarzında sol kolda uyuşmanın da eşlik ettiği göğüs ağrısı olması üzerine 112 tarafından getirildi.",
+    "en": "A patient with no known chronic disease or regular medication use was brought by EMS due to palpitations that started 1.5 hours ago, accompanied by 5-10 minutes of pressure-like chest pain radiating to the left arm and numbness."
+  },
+  "background": {
+    "tr": {
+      "Özgeçmiş": "Bilinen hastalık yok.",
+      "Alışkanlıklar": "Sigara 24 paket/yıl, alkol, bitkisel ürün ve madde kullanımı yok.",
+      "Kullandığı İlaçlar": "Yok.",
+      "Soygeçmiş": "Özellik yok."
+    },
+    "en": {
+      "Past Medical History": "No known diseases.",
+      "Habits": "24 pack-years smoking, no alcohol, herbal product or substance use.",
+      "Medications": "None.",
+      "Family History": "Not significant."
+    }
+  },
+  "physical_exam": {
+    "tr": {
+      "Genel Durum": "Genel durumu iyi, bilinci açık, yer, zaman, kişi oryantasyonu tam. İkter ve siyanoz yok. Saç ve saçlı deri doğal. Lenfadenomegali yok, juguler venöz dolgunluk yok.",
+      "Kardiyovasküler Sistem": "S1 ve S2 doğal, ritm düzensiz. Periferik nabızlar eşit ve palpabl, kapiller dolum süresi normal.",
+      "Solunum Sistemi": "Solunum sesleri her iki hemitoraksta eşit, ral ve ronküs duyulmadı, solunuma bilateral eşit katılım var.",
+      "Gastrointestinal Sistem": "Orofaringeal muayene doğal, batın yumuşak, defans ve rebound yok, bağırsak sesleri normoaktif.",
+      "Genitoüriner Sistem": "Genitoüriner sistem muayenesi doğal, kostovertebral açı hassasiyeti yok.",
+      "Lokomotor Sistem": "Lokomotor sistem muayenesi doğal, artrit ve deformite yok, pretibial ödem yok.",
+      "Sinir Sistemi": "Bilinç açık, oryantasyon tam, pupiller izokorik, ense sertliği yok, kas gücü 5/5, DTR'ler normoaktif, motor ve duyu muayenesi doğal."
+    },
+    "en": {
+      "General Condition": "Good general condition, conscious, fully oriented to person, place, and time. No jaundice or cyanosis. Hair and scalp normal. No lymphadenopathy or jugular venous distension.",
+      "Cardiovascular System": "S1 and S2 normal, rhythm irregular. Peripheral pulses palpable and equal, capillary refill time normal.",
+      "Respiratory System": "Breath sounds equal bilaterally, no rales or rhonchi, symmetrical chest expansion.",
+      "Gastrointestinal System": "Oropharyngeal exam normal, abdomen soft, no defense or rebound, bowel sounds normoactive.",
+      "Genitourinary System": "Genitourinary exam normal, no costovertebral angle tenderness.",
+      "Locomotor System": "Locomotor exam normal, no arthritis or deformity, no pretibial edema.",
+      "Nervous System": "Conscious, fully oriented, pupils isochoric, no neck stiffness, muscle strength 5/5, DTRs normoactive, motor and sensory exams normal."
+    }
+  },
+  "fast_tests": {
+    "blood_gas": {
+      "pH": { "value": 7.38, "ref": "7.35-7.45" },
+      "pCO2": { "value": 45.4, "ref": "35-45 mmHg" },
+      "HCO3": { "value": 23.6, "ref": "22-26 mmol/L" },
+      "Lac": { "value": 1.9, "ref": "0.5-2.2 mmol/L" }
+    },
+    "ekg": {
+  "tr": "Ritim düzensiz ve hızlı (ventrikül hızı yaklaşık 165/dk). P dalgası seçilemiyor. QRS kompleksleri dar, aralarında belirgin düzensizlik var. ST elevasyonu veya belirgin iskemik değişiklik yok.",
+  "en": "Rhythm is irregularly irregular and rapid (ventricular rate ~165 bpm). P waves are not discernible. QRS complexes are narrow with marked irregularity in RR intervals. No ST elevation or obvious ischemic changes."
+}
+  },
+  "labs": {
+    "hemogram": {
+      "WBC": { "value": 8.64, "ref": "4.5-11 x10^3/µL" },
+      "Hgb": { "value": 16.2, "ref": "13-17 g/dL" },
+      "Plt": { "value": 337, "ref": "150-450 x10^3/µL" },
+      "MCV": { "value": 84.1, "ref": "80-96 fL" },
+      "Neut#": { "value": 5.85, "ref": "2.0-7.0 x10^3/µL" }
+    },
+    "biochemistry": {
+      "tr": {
+        "Glukoz": { "value": 99, "ref": "70-100 mg/dL" },
+        "Sodyum": { "value": 140, "ref": "135-145 mmol/L" },
+        "Potasyum": { "value": 4.2, "ref": "3.5-5.1 mmol/L" },
+        "Klor": { "value": 104, "ref": "98-107 mmol/L" },
+        "Kreatinin": { "value": 0.89, "ref": "0.6-1.2 mg/dL" },
+        "ALT": { "value": 22, "ref": "0-41 U/L" },
+        "AST": { "value": 20, "ref": "0-40 U/L" },
+        "CRP": { "value": 2, "ref": "<5 mg/L" },
+        "Troponin": { "value": 0.01, "ref": "<0.04 ng/mL" }
+      },
+      "en": {
+        "Glucose": { "value": 99, "ref": "70-100 mg/dL" },
+        "Na": { "value": 140, "ref": "135-145 mmol/L" },
+        "K": { "value": 4.2, "ref": "3.5-5.1 mmol/L" },
+        "Cl": { "value": 104, "ref": "98-107 mmol/L" },
+        "Creatinine": { "value": 0.89, "ref": "0.6-1.2 mg/dL" },
+        "ALT": { "value": 22, "ref": "0-41 U/L" },
+        "AST": { "value": 20, "ref": "0-40 U/L" },
+        "CRP": { "value": 2, "ref": "<5 mg/L" },
+        "Troponin": { "value": 0.01, "ref": "<0.04 ng/mL" }
+      }
+    }
+  },
+  "imaging": { "tr": "-", "en": "-" },
+  "course": {
+    "tr": "Hastanın aritmisi ve semptomları gözlem altında izlendi, hemodinami stabildi.",
+    "en": "Patient was monitored for arrhythmia and symptoms; hemodynamics remained stable."
+  },
+  "correct_diagnosis": {
+    "tr": "Hızlı ventrikül yanıtlı atriyal fibrilasyon",
+    "en": "Atrial fibrillation with rapid ventricular response"
+  },
+  "explanation": {
+    "tr": "Atriyal fibrilasyon tanısı EKG bulgularıyla desteklenmiştir. Hastada hızlı ventrikül yanıtı, semptomatik çarpıntı ve göğüs ağrısı öyküsü mevcuttur.",
+    "en": "Diagnosis of atrial fibrillation is supported by ECG findings. The patient had rapid ventricular response and symptomatic palpitations and chest pain."
+  },
+  "references": [
+    { "tr": "Braunwald's Heart Disease, 12. baskı, Atriyal Fibrilasyon bölümü", "en": "Braunwald's Heart Disease, 12th edition, Atrial Fibrillation chapter" }
+  ]
+}
+
 ]

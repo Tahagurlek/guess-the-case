@@ -12,5 +12,7 @@
   { "tr": "Tiroid fırtınası", "en": "Thyroid storm" },
   { "tr": "İmmün trombositopenik purpura (ITP)", "en": "Immune thrombocytopenic purpura (ITP)" },
   { "tr": "Adrenal yetmezlik", "en": "Adrenal insufficiency" },
-  { "tr": "Akut myokard enfarktüsü", "en": "Acute myocardial infarction" }
+  { "tr": "Akut myokard enfarktüsü", "en": "Acute myocardial infarction" },
+  { "tr": "Hızlı ventrikül yanıtlı atriyal fibrilasyon", "en": "Atrial fibrillation with rapid ventricular response" }
+
 ]
