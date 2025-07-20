@@ -478,6 +478,128 @@
   "references": [
     { "tr": "Braunwald's Heart Disease, 12. baskı, Atriyal Fibrilasyon bölümü", "en": "Braunwald's Heart Disease, 12th edition, Atrial Fibrillation chapter" }
   ]
+},
+{
+  "date": "2025-07-20",
+  "demographics": { "age": 59, "sex": { "tr": "Kadın", "en": "Female" } },
+  "chief_complaint": { "tr": "Bilinç bulanıklığı", "en": "Altered mental status" },
+  "vitals": {
+    "tr": { "Ateş": "35.4°C", "Nabız": "83/dk", "TA": "205/110 mmHg", "SpO2": "95%", "Solunum": "16/dk" },
+    "en": { "Temp": "35.4°C", "Pulse": "83", "BP": "205/110 mmHg", "SpO2": "95%", "RR": "16/min" }
+  },
+  "history": {
+    "tr": "Yakınlarından alınan anamnezde, 2 gündür halsizlik ve uykuya eğilim olan hasta, arkadaşları ile beraberken bilinç kötüleşmesi nedeniyle ambulans ile getirildi.",
+    "en": "According to relatives, the patient had fatigue and somnolence for 2 days, and developed worsening consciousness while with friends, brought in by ambulance."
+  },
+  "background": {
+    "tr": {
+      "Özgeçmiş": "Bilinen hastalığı yok.",
+      "Alışkanlıklar": "15 yıldır yoğun alkol kullanımı.",
+      "Kullandığı İlaçlar": "Yok.",
+      "Soygeçmiş": "Özellik yok."
+    },
+    "en": {
+      "Past Medical History": "No known chronic diseases.",
+      "Habits": "Heavy alcohol consumption for 15 years.",
+      "Medications": "None.",
+      "Family History": "Not significant."
+    }
+  },
+  "physical_exam": {
+    "tr": {
+      "Genel Durum": "Genel durumu kötü, bilinci kapalı. Pupiller fiks ve dilate. İkter ve siyanoz yok. Saç ve saçlı deri normal. Lenfadenomegali ve juguler venöz dolgunluk yok.",
+      "Kardiyovasküler Sistem": "S1-S2 doğal, ritm düzenli. Periferik nabızlar eşit ve palpabl, kapiller dolum zamanı normal.",
+      "Solunum Sistemi": "Sol akciğerde azalmış solunum sesleri, diğer alanlarda solunum sesleri doğal. Ral ve ronküs yok.",
+      "Gastrointestinal Sistem": "Batın yumuşak, defans ve rebound yok. Bağırsak sesleri normoaktif.",
+      "Genitoüriner Sistem": "Genitoüriner sistem muayenesi doğal.",
+      "Lokomotor Sistem": "Lokomotor sistem muayenesi doğal.",
+      "Sinir Sistemi": "Bilinç kapalı, pupiller fiks ve dilate, ense sertliği yok, kas gücü değerlendirilemedi, DTR'ler değerlendirilemedi."
+    },
+    "en": {
+      "General Condition": "Poor general condition, unconscious. Pupils fixed and dilated. No jaundice or cyanosis. Hair and scalp normal. No lymphadenopathy or jugular venous distension.",
+      "Cardiovascular System": "S1 and S2 normal, regular rhythm. Peripheral pulses palpable and equal, capillary refill time normal.",
+      "Respiratory System": "Decreased breath sounds in the left lung; other areas normal. No rales or rhonchi.",
+      "Gastrointestinal System": "Abdomen soft, no defense or rebound. Bowel sounds normoactive.",
+      "Genitourinary System": "Genitourinary exam normal.",
+      "Locomotor System": "Locomotor exam normal.",
+      "Nervous System": "Unconscious, pupils fixed and dilated, no neck stiffness, muscle strength and DTRs could not be evaluated."
+    }
+  },
+  "fast_tests": {
+    "blood_gas": {
+      "pH": { "value": 6.6, "ref": "7.35-7.45" },
+      "HCO3": { "value": 4.6, "ref": "22-26 mmol/L" },
+      "pCO2": { "value": 60.7, "ref": "35-45 mmHg" },
+      "Lac": { "value": 12, "ref": "0.5-2.2 mmol/L" },
+      "Glukoz": { "value": 323, "ref": "70-100 mg/dL" }
+    },
+    "ekg": {
+      "tr": "Sinüs ritminde, kalp hızı 75/dk. PR, QRS ve QTc aralıkları normal, belirgin iskemik değişiklik yok.",
+      "en": "Sinus rhythm at 75 bpm. PR, QRS, and QTc intervals normal, no significant ischemic changes."
+    }
+  },
+  "labs": {
+    "hemogram": {},
+    "biochemistry": {
+      "tr": {
+        "Potasyum": { "value": 6.1, "ref": "3.5-5.1 mmol/L" },
+        "Kreatinin": { "value": 1.39, "ref": "0.6-1.2 mg/dL" },
+        "Sodyum": { "value": 139, "ref": "135-145 mmol/L" },
+        "Glukoz": { "value": 323, "ref": "70-100 mg/dL" },
+        "Ürik asit": { "value": 11, "ref": "2.4-5.7 mg/dL" },
+        "LDH": { "value": 298, "ref": "135-214 U/L" },
+        "Amonyak": { "value": 28.7, "ref": "11-32 µmol/L" },
+        "Fosfor": { "value": 7.42, "ref": "2.5-4.5 mg/dL" },
+        "D-dimer": { "value": 2324, "ref": "<500 ng/mL" },
+        "INR": { "value": 1.07, "ref": "0.8-1.2" },
+        "aPTT": { "value": 31, "ref": "24-35 sn" },
+        "PT": { "value": 12.8, "ref": "10-13.5 sn" }
+      },
+      "en": {
+        "K": { "value": 6.1, "ref": "3.5-5.1 mmol/L" },
+        "Creatinine": { "value": 1.39, "ref": "0.6-1.2 mg/dL" },
+        "Na": { "value": 139, "ref": "135-145 mmol/L" },
+        "Glucose": { "value": 323, "ref": "70-100 mg/dL" },
+        "Uric acid": { "value": 11, "ref": "2.4-5.7 mg/dL" },
+        "LDH": { "value": 298, "ref": "135-214 U/L" },
+        "Ammonia": { "value": 28.7, "ref": "11-32 µmol/L" },
+        "Phosphorus": { "value": 7.42, "ref": "2.5-4.5 mg/dL" },
+        "D-dimer": { "value": 2324, "ref": "<500 ng/mL" },
+        "INR": { "value": 1.07, "ref": "0.8-1.2" },
+        "aPTT": { "value": 31, "ref": "24-35 sec" },
+        "PT": { "value": 12.8, "ref": "10-13.5 sec" }
+      }
+    }
+  },
+  "urinalysis": {
+    "tr": {
+      "Keton": { "value": "-", "ref": "negatif" },
+      "Eritrosit": { "value": 0, "ref": "<5 /HPF" },
+      "Lökosit": { "value": 0, "ref": "<5 /HPF" }
+    },
+    "en": {
+      "Ketone": { "value": "-", "ref": "negative" },
+      "Erythrocyte": { "value": 0, "ref": "<5 /HPF" },
+      "Leukocyte": { "value": 0, "ref": "<5 /HPF" }
+    }
+  },
+  "imaging": { "tr": "-", "en": "-" },
+  "course": {
+    "tr": "Hasta acil serviste entübe edilerek yoğun bakım takibine alındı. Kan gazında ağır metabolik asidoz izlendi, yoğun alkol anamnezi mevcut.",
+    "en": "The patient was intubated in the emergency department and admitted to intensive care. Severe metabolic acidosis on blood gas; history of heavy alcohol use."
+  },
+  "correct_diagnosis": {
+    "tr": "Metil alkol zehirlenmesi",
+    "en": "Methanol intoxication"
+  },
+  "explanation": {
+    "tr": "Klinik bulgular, ciddi asidoz, yüksek laktat ve ağır bilinç bozukluğu ile metil alkol intoksikasyonu ön planda düşünülmüştür.",
+    "en": "Clinical findings, severe acidosis, high lactate and profound altered consciousness support a diagnosis of methanol intoxication."
+  },
+  "references": [
+    { "tr": "Tintinalli Acil Tıp, 9. baskı, Metanol Zehirlenmesi bölümü", "en": "Tintinalli's Emergency Medicine, 9th edition, Methanol Poisoning chapter" }
+  ]
 }
+
 
 ]
