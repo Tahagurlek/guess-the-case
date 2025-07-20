@@ -483,6 +483,33 @@
   "date": "2025-07-20",
   "demographics": { "age": 59, "sex": { "tr": "Kadın", "en": "Female" } },
   "chief_complaint": { "tr": "Bilinç bulanıklığı", "en": "Altered mental status" },
+  "steps": [
+    {
+      "key": "history",
+      "label": { "tr": "Hikaye", "en": "History" },
+      "penalty": 10
+    },
+    {
+      "key": "background",
+      "label": { "tr": "Özgeçmiş, Alışkanlık, İlaç, Soygeçmiş", "en": "Background, Habits, Medications, Family" },
+      "penalty": 10
+    },
+    {
+      "key": "physical_exam",
+      "label": { "tr": "Fizik Muayene", "en": "Physical Exam" },
+      "penalty": 10
+    },
+    {
+      "key": "fast_tests",
+      "label": { "tr": "Hızlı Sonuçlanan Testler", "en": "Fast Results" },
+      "penalty": 10
+    },
+    {
+      "key": "labs",
+      "label": { "tr": "Laboratuvar", "en": "Laboratory" },
+      "penalty": 15
+    }
+  ],
   "vitals": {
     "tr": { "Ateş": "35.4°C", "Nabız": "83/dk", "TA": "205/110 mmHg", "SpO2": "95%", "Solunum": "16/dk" },
     "en": { "Temp": "35.4°C", "Pulse": "83", "BP": "205/110 mmHg", "SpO2": "95%", "RR": "16/min" }
@@ -569,8 +596,7 @@
         "aPTT": { "value": 31, "ref": "24-35 sec" },
         "PT": { "value": 12.8, "ref": "10-13.5 sec" }
       }
-    }
-  },
+    },
   "urinalysis": {
     "tr": {
       "Keton": { "value": "-", "ref": "negatif" },
@@ -582,7 +608,9 @@
       "Erythrocyte": { "value": 0, "ref": "<5 /HPF" },
       "Leukocyte": { "value": 0, "ref": "<5 /HPF" }
     }
+  }
   },
+
   "imaging": { "tr": "-", "en": "-" },
   "course": {
     "tr": "Hasta acil serviste entübe edilerek yoğun bakım takibine alındı. Kan gazında ağır metabolik asidoz izlendi, yoğun alkol anamnezi mevcut.",
@@ -600,6 +628,7 @@
     { "tr": "Tintinalli Acil Tıp, 9. baskı, Metanol Zehirlenmesi bölümü", "en": "Tintinalli's Emergency Medicine, 9th edition, Methanol Poisoning chapter" }
   ]
 }
+
 
 
 ]

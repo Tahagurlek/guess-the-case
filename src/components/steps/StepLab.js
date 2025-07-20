@@ -5,7 +5,7 @@ function LabGrid({ items }) {
   return (
     <Box sx={{ my: 1.2 }}>
       {items.map(([k, v], i) => (
-        <Box
+         <Box
           key={i}
           sx={{
             display: "grid",
@@ -16,8 +16,9 @@ function LabGrid({ items }) {
               : "inherit",
             borderRadius: 1,
             px: 0.5,
-            py: 0.5,
-            mb: 0.2
+            py: { xs: 1.1, sm: 1.3 },    // <-- Satır arası çok daha ferah!
+            mb: 0.4,                     // <-- Satırlar arası boşluk daha fazla!
+            columnGap: 2                 // <-- Sütunlar arası daha geniş (isteğe bağlı)
           }}
         >
           <Box sx={{ fontWeight: 500 }}>{k}</Box>

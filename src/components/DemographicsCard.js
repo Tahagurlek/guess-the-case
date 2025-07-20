@@ -1,48 +1,60 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 
 export default function DemographicsCard({ selectedVaka, lang, vitals }) {
+const theme = useTheme();
   if (!selectedVaka) return null;
   return (
     <Box sx={{
-      p: 2,
-      mb: 2,
-      borderRadius: 2,
+      p: { xs: 1.6, sm: 2.4 },
+      mb: 2.2,
+      borderRadius: 3.5,
       background: theme => theme.palette.mode === "dark"
-        ? "linear-gradient(90deg,#23272b 60%,#202225 100%)"
-        : "linear-gradient(90deg,#e3f2fd 60%,#fffde7 100%)",
-      boxShadow: "0 2px 12px #bdbdbd55"
+        ? "#23272b"
+        : "#f9fafd",
+      border: "1.1px solid #ececec",
+      boxShadow: "0 2px 12px #dde2f822"
     }}>
-      <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
+      {/* Başlık */}
+      <Typography variant="h6" sx={{
+        fontWeight: 800, mb: 1.1, fontSize: "1.19rem", letterSpacing: 0.05
+      }}>
         {lang === "tr" ? "Kimlik Bilgileri & Şikayet" : "Demographics & Chief Complaint"}
       </Typography>
-      <Typography>
-  <b>{lang === "tr" ? "Yaş" : "Age"}:</b> {selectedVaka.demographics.age}
-  &nbsp;|&nbsp;
-  <b>{lang === "tr" ? "Cinsiyet" : "Sex"}:</b> {selectedVaka.demographics.sex[lang]}
-</Typography>
-<Typography>
-  <b>{lang === "tr" ? "Şikayet" : "Chief Complaint"}:</b> {selectedVaka.chief_complaint[lang]}
-</Typography>
-<Box
-  sx={{
-    mt: 1,
-    p: 1,
-    borderRadius: 1,
-    display: "flex",
-    gap: 2,
-    flexWrap: "wrap",
-    background: theme =>
-      theme.palette.mode === "dark" ? "#23272b" : "#fffde7"
-  }}
->
-  {vitals && Object.entries(vitals).map(([k, v], i) => (
-    <Box key={i} sx={{ mr: 2 }}>
-      <b>{k}:</b> {v}
-    </Box>
-  ))}
-</Box>
-
+      {/* Yaş / Cinsiyet */}
+      <Typography sx={{ mb: 0.3, fontSize: "1.07em" }}>
+        <b>Yaş:</b> {selectedVaka.demographics.age}
+        <span style={{ margin: "0 10px" }}>|</span>
+        <b>Cinsiyet:</b> {selectedVaka.demographics.sex[lang]}
+      </Typography>
+      {/* Şikayet */}
+      <Typography sx={{ mb: 1.1, fontSize: "1.07em" }}>
+        <b style={{ color: "#b48a00" }}>{lang === "tr" ? "Şikayet:" : "Complaint:"}</b>
+        <span style={{
+          fontWeight: 600,
+          color: theme.palette.text.primary,
+          marginLeft: 7
+        }}>
+          {selectedVaka.chief_complaint[lang]}
+        </span>
+      </Typography>
+      {/* Vitaller */}
+      <Box sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: 2,
+        fontSize: { xs: "1.05em", sm: "1.11em" },
+        alignItems: "center"
+      }}>
+        {vitals && Object.entries(vitals).map(([k, v], i) => (
+          <span key={i} style={{
+            marginRight: 14,
+            marginBottom: 4
+          }}>
+            <b>{k}:</b> <span style={{ fontWeight: 600 }}>{v}</span>
+          </span>
+        ))}
+      </Box>
     </Box>
   );
 }

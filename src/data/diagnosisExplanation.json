@@ -1,0 +1,442 @@
+[
+  {
+    "tr": "Diyabetik ketoasidoz",
+    "en": "Diabetic ketoacidosis",
+    "criteria": {
+      "tr": [
+        "Hiperglisemi (genellikle >250 mg/dL)",
+        "Ketoz (idrarda/serumda keton pozitifliği)",
+        "Metabolik asidoz (pH <7.3, HCO3 <18 mmol/L)"
+      ],
+      "en": [
+        "Hyperglycemia (usually >250 mg/dL)",
+        "Ketonemia/ketonuria",
+        "Metabolic acidosis (pH <7.3, HCO3 <18 mmol/L)"
+      ]
+    },
+    "short_info": {
+      "tr": "Diyabetik ketoasidoz, insülin eksikliği ve karşıt hormonların artışıyla gelişen, asidoz ve ketozisle karakterize akut bir diyabet komplikasyonudur.",
+      "en": "Diabetic ketoacidosis is an acute complication of diabetes characterized by insulin deficiency, ketosis, and acidosis."
+    },
+    "pearl": {
+      "tr": "DKA'nın klasik triadı: hiperglisemi, ketonemi ve asidoz.",
+      "en": "The classic triad of DKA: hyperglycemia, ketonemia, and acidosis."
+    },
+    "references": [
+      { "tr": "Harrison's İç Hastalıkları, 21. baskı, DKA bölümü", "en": "Harrison's Internal Medicine, 21st edition, DKA chapter" }
+    ]
+  },
+  {
+    "tr": "Hiperozmolar hiperglisemik durum",
+    "en": "Hyperosmolar hyperglycemic state",
+    "criteria": {
+      "tr": [
+        "Ciddi hiperglisemi (>600 mg/dL)",
+        "Serum osmolalitesi >320 mOsm/kg",
+        "Belirgin dehidratasyon",
+        "Minimal veya yok denecek kadar ketonemi/asidoz (pH >7.3, HCO3 >18 mmol/L)"
+      ],
+      "en": [
+        "Severe hyperglycemia (>600 mg/dL)",
+        "Serum osmolality >320 mOsm/kg",
+        "Significant dehydration",
+        "Minimal or no ketonemia/acidosis (pH >7.3, HCO3 >18 mmol/L)"
+      ]
+    },
+    "short_info": {
+      "tr": "Hiperozmolar hiperglisemik durum, genellikle tip 2 diyabette görülen, ağır hiperglisemi ve dehidratasyonla karakterize akut bir komplikasyondur.",
+      "en": "Hyperosmolar hyperglycemic state is an acute complication, mostly of type 2 diabetes, characterized by severe hyperglycemia and dehydration."
+    },
+    "pearl": {
+      "tr": "Ketoz ve asidoz genellikle minimaldir veya yoktur.",
+      "en": "Ketosis and acidosis are usually minimal or absent."
+    },
+    "references": [
+      { "tr": "Harrison's İç Hastalıkları, 21. baskı, HHS bölümü", "en": "Harrison's Internal Medicine, 21st edition, HHS chapter" }
+    ]
+  },
+  {
+    "tr": "Hipoglisemi",
+    "en": "Hypoglycemia",
+    "criteria": {
+      "tr": [
+        "Kan şekeri <70 mg/dL",
+        "Adrenerjik belirtiler (terleme, taşikardi, titreme)",
+        "Nöroglikopenik belirtiler (konfüzyon, bilinç kaybı, nöbet)"
+      ],
+      "en": [
+        "Blood glucose <70 mg/dL",
+        "Adrenergic symptoms (sweating, tachycardia, tremor)",
+        "Neuroglycopenic symptoms (confusion, loss of consciousness, seizure)"
+      ]
+    },
+    "short_info": {
+      "tr": "Hipoglisemi, kan şekeri seviyesinin düşmesine bağlı gelişen akut bir durumdur; acil tanı ve tedavi gerektirir.",
+      "en": "Hypoglycemia is an acute condition caused by low blood glucose; it requires urgent recognition and treatment."
+    },
+    "pearl": {
+      "tr": "Hastada hipoglisemi bulguları varsa, hızlıca glukoz verilmelidir.",
+      "en": "If hypoglycemia symptoms are present, give glucose immediately."
+    },
+    "references": [
+      { "tr": "Harrison's İç Hastalıkları, 21. baskı, hipoglisemi bölümü", "en": "Harrison's Internal Medicine, 21st edition, hypoglycemia chapter" }
+    ]
+  },
+  {
+    "tr": "Gastroenterit",
+    "en": "Gastroenteritis",
+    "criteria": {
+      "tr": [
+        "Akut bulantı, kusma ve/veya ishal",
+        "Karın ağrısı",
+        "Ateş (opsiyonel)",
+        "Genellikle viral ya da bakteriyel etkenler"
+      ],
+      "en": [
+        "Acute onset of nausea, vomiting, and/or diarrhea",
+        "Abdominal pain",
+        "Fever (optional)",
+        "Usually viral or bacterial etiology"
+      ]
+    },
+    "short_info": {
+      "tr": "Gastroenterit, gastrointestinal sistemin enfeksiyonu sonucu gelişen, genellikle akut seyirli bir hastalıktır.",
+      "en": "Gastroenteritis is an acute infection of the gastrointestinal tract, typically with a short course."
+    },
+    "pearl": {
+      "tr": "Sıvı replasmanı en önemli tedavi basamağıdır.",
+      "en": "Fluid replacement is the cornerstone of treatment."
+    },
+    "references": [
+      { "tr": "Harrison's İç Hastalıkları, 21. baskı, gastroenterit bölümü", "en": "Harrison's Internal Medicine, 21st edition, gastroenteritis chapter" }
+    ]
+  },
+  {
+    "tr": "Laktik asidoz",
+    "en": "Lactic acidosis",
+    "criteria": {
+      "tr": [
+        "Serum laktat >5 mmol/L",
+        "Metabolik asidoz (pH <7.35, HCO3 <15 mmol/L)",
+        "Yüksek anyon gap"
+      ],
+      "en": [
+        "Serum lactate >5 mmol/L",
+        "Metabolic acidosis (pH <7.35, HCO3 <15 mmol/L)",
+        "High anion gap"
+      ]
+    },
+    "short_info": {
+      "tr": "Laktik asidoz, dokuların yeterince oksijenlenememesi sonucu gelişen, hayatı tehdit edebilen metabolik asidozdur.",
+      "en": "Lactic acidosis is a potentially life-threatening metabolic acidosis caused by inadequate tissue oxygenation."
+    },
+    "pearl": {
+      "tr": "En sık nedenler: sepsis, hipoperfüzyon, hipoksi.",
+      "en": "Most common causes: sepsis, hypoperfusion, hypoxia."
+    },
+    "references": [
+      { "tr": "Harrison's İç Hastalıkları, 21. baskı, laktik asidoz bölümü", "en": "Harrison's Internal Medicine, 21st edition, lactic acidosis chapter" }
+    ]
+  },
+  {
+    "tr": "Sepsis",
+    "en": "Sepsis",
+    "criteria": {
+      "tr": [
+        "Enfeksiyon bulguları",
+        "Organ disfonksiyonu (ör. hipotansiyon, laktik asidoz)",
+        "SOFA skorunda ≥2 artış"
+      ],
+      "en": [
+        "Signs of infection",
+        "Organ dysfunction (e.g., hypotension, lactic acidosis)",
+        "Increase of SOFA score by ≥2"
+      ]
+    },
+    "short_info": {
+      "tr": "Sepsis, enfeksiyona bağlı gelişen organ disfonksiyonudur ve hayatı tehdit edebilir.",
+      "en": "Sepsis is a life-threatening organ dysfunction caused by a dysregulated response to infection."
+    },
+    "pearl": {
+      "tr": "Erken tanı ve antibiyotik tedavisi hayat kurtarır.",
+      "en": "Early recognition and antibiotic therapy are lifesaving."
+    },
+    "references": [
+      { "tr": "Surviving Sepsis Campaign, 2024 kılavuzu", "en": "Surviving Sepsis Campaign, 2024 guidelines" }
+    ]
+  },
+  {
+    "tr": "Akut böbrek yetmezliği",
+    "en": "Acute renal failure",
+    "criteria": {
+      "tr": [
+        "Serum kreatinin >0.3 mg/dL artış (48 saatte)",
+        "İdrar çıkışında azalma (<0.5 mL/kg/saat, >6 saat)",
+        "Glomerüler filtrasyon hızında ani azalma"
+      ],
+      "en": [
+        "Increase in serum creatinine >0.3 mg/dL (within 48 hours)",
+        "Reduced urine output (<0.5 mL/kg/h for >6 hours)",
+        "Sudden drop in glomerular filtration rate"
+      ]
+    },
+    "short_info": {
+      "tr": "Akut böbrek yetmezliği, böbrek fonksiyonlarının ani bozulmasıdır.",
+      "en": "Acute renal failure is a sudden loss of kidney function."
+    },
+    "pearl": {
+      "tr": "En sık nedenler: prerenal azotemi, akut tübüler nekroz.",
+      "en": "Most common causes: prerenal azotemia, acute tubular necrosis."
+    },
+    "references": [
+      { "tr": "KDIGO AKI Kılavuzu, 2012", "en": "KDIGO AKI Guidelines, 2012" }
+    ]
+  },
+  {
+    "tr": "Akut pankreatit",
+    "en": "Acute pancreatitis",
+    "criteria": {
+      "tr": [
+        "Tipik karın ağrısı (epigastrik, sırta vuran)",
+        "Serum amilaz/lipaz ≥3 kat artış",
+        "Görüntülemede pankreatit bulguları"
+      ],
+      "en": [
+        "Typical abdominal pain (epigastric, radiating to the back)",
+        "Serum amylase/lipase ≥3 times normal",
+        "Imaging evidence of pancreatitis"
+      ]
+    },
+    "short_info": {
+      "tr": "Akut pankreatit, pankreasın inflamasyonudur; en sık nedenler safra taşı ve alkoldür.",
+      "en": "Acute pancreatitis is inflammation of the pancreas; most common causes are gallstones and alcohol."
+    },
+    "pearl": {
+      "tr": "Amilaz/lipaz normal olsa da pankreatit dışlanamaz.",
+      "en": "Normal amylase/lipase does not exclude pancreatitis."
+    },
+    "references": [
+      { "tr": "Harrison's İç Hastalıkları, 21. baskı, pankreatit bölümü", "en": "Harrison's Internal Medicine, 21st edition, pancreatitis chapter" }
+    ]
+  },
+  {
+    "tr": "İlaç intoksikasyonu",
+    "en": "Drug intoxication",
+    "criteria": {
+      "tr": [
+        "Şüpheli ilaç öyküsü",
+        "Bilinç değişikliği, vital bulgu değişiklikleri",
+        "Spesifik ilaç bulguları veya laboratuvar anormallikleri"
+      ],
+      "en": [
+        "Suspicious drug history",
+        "Altered mental status, vital sign changes",
+        "Specific drug findings or laboratory abnormalities"
+      ]
+    },
+    "short_info": {
+      "tr": "İlaç intoksikasyonu, alınan ilaçların toksik dozda olması sonucu gelişen klinik tablodur.",
+      "en": "Drug intoxication is a clinical syndrome caused by toxic doses of drugs."
+    },
+    "pearl": {
+      "tr": "Hastada açıklanamayan semptomlarda ilaç intoksikasyonu mutlaka düşünülmelidir.",
+      "en": "Consider drug intoxication in unexplained clinical pictures."
+    },
+    "references": [
+      { "tr": "Harrison's İç Hastalıkları, 21. baskı, toksikoloji bölümü", "en": "Harrison's Internal Medicine, 21st edition, toxicology chapter" }
+    ]
+  },
+  {
+    "tr": "Akut karın",
+    "en": "Acute abdomen",
+    "criteria": {
+      "tr": [
+        "Ani başlayan, şiddetli karın ağrısı",
+        "Peritonit bulguları (tahta karın, defans, rebound)",
+        "Ek semptomlar: kusma, ateş, hipotansiyon"
+      ],
+      "en": [
+        "Sudden, severe abdominal pain",
+        "Signs of peritonitis (board-like rigidity, guarding, rebound tenderness)",
+        "Associated symptoms: vomiting, fever, hypotension"
+      ]
+    },
+    "short_info": {
+      "tr": "Akut karın, hızlı değerlendirme ve tedavi gerektiren, hayatı tehdit edebilen karın patolojilerini ifade eder.",
+      "en": "Acute abdomen refers to life-threatening abdominal conditions requiring rapid assessment and treatment."
+    },
+    "pearl": {
+      "tr": "Akut karın her zaman cerrahi bir acil olabilir.",
+      "en": "Acute abdomen may always be a surgical emergency."
+    },
+    "references": [
+      { "tr": "Sabiston Cerrahi, 21. baskı, akut karın bölümü", "en": "Sabiston Surgery, 21st edition, acute abdomen chapter" }
+    ]
+  },
+  {
+    "tr": "Tiroid fırtınası",
+    "en": "Thyroid storm",
+    "criteria": {
+      "tr": [
+        "Ateş, taşikardi, taşiaritmi",
+        "Konfüzyon, ajitasyon, koma",
+        "Bulantı, kusma, diyare",
+        "Mevcut hipertiroidi öyküsü"
+      ],
+      "en": [
+        "Fever, tachycardia, tachyarrhythmia",
+        "Confusion, agitation, coma",
+        "Nausea, vomiting, diarrhea",
+        "History of hyperthyroidism"
+      ]
+    },
+    "short_info": {
+      "tr": "Tiroid fırtınası, hipertiroidinin hayatı tehdit eden komplikasyonudur.",
+      "en": "Thyroid storm is a life-threatening complication of hyperthyroidism."
+    },
+    "pearl": {
+      "tr": "Ateş ve taşikardinin açıklanamadığı her durumda tiroid fırtınası düşünülmeli.",
+      "en": "Suspect thyroid storm in unexplained fever and tachycardia."
+    },
+    "references": [
+      { "tr": "Harrison's İç Hastalıkları, 21. baskı, tiroid fırtınası bölümü", "en": "Harrison's Internal Medicine, 21st edition, thyroid storm chapter" }
+    ]
+  },
+  {
+    "tr": "İmmün trombositopenik purpura (ITP)",
+    "en": "Immune thrombocytopenic purpura (ITP)",
+    "criteria": {
+      "tr": [
+        "Trombosit sayısı <100.000/mm³",
+        "İleri derecede izole trombositopeni",
+        "Diğer nedenlerin dışlanması"
+      ],
+      "en": [
+        "Platelet count <100,000/mm³",
+        "Severe isolated thrombocytopenia",
+        "Exclusion of other causes"
+      ]
+    },
+    "short_info": {
+      "tr": "ITP, otoimmün kökenli, izole trombositopeni ile seyreden bir hematolojik hastalıktır.",
+      "en": "ITP is an autoimmune hematologic disorder with isolated thrombocytopenia."
+    },
+    "pearl": {
+      "tr": "Erişkinde İTP tanısı dışlama ile konur.",
+      "en": "In adults, ITP is a diagnosis of exclusion."
+    },
+    "references": [
+      { "tr": "Williams Hematoloji, 10. baskı, ITP bölümü", "en": "Williams Hematology, 10th edition, ITP chapter" }
+    ]
+  },
+  {
+    "tr": "Adrenal yetmezlik",
+    "en": "Adrenal insufficiency",
+    "criteria": {
+      "tr": [
+        "Hipotansiyon, hiponatremi, hiperkalemi",
+        "Kortizol düşüklüğü",
+        "ACTH yüksekliği (primerde)"
+      ],
+      "en": [
+        "Hypotension, hyponatremia, hyperkalemia",
+        "Low cortisol",
+        "Elevated ACTH (in primary)"
+      ]
+    },
+    "short_info": {
+      "tr": "Adrenal yetmezlik, böbrek üstü bezlerinin yetersiz steroid üretimi ile karakterizedir.",
+      "en": "Adrenal insufficiency is characterized by deficient steroid production by the adrenal glands."
+    },
+    "pearl": {
+      "tr": "Hipotansiyonun nedeni açıklanamıyorsa adrenal yetmezlik düşün.",
+      "en": "Suspect adrenal insufficiency in unexplained hypotension."
+    },
+    "references": [
+      { "tr": "Harrison's İç Hastalıkları, 21. baskı, adrenal yetmezlik bölümü", "en": "Harrison's Internal Medicine, 21st edition, adrenal insufficiency chapter" }
+    ]
+  },
+  {
+    "tr": "Akut myokard enfarktüsü",
+    "en": "Acute myocardial infarction",
+    "criteria": {
+      "tr": [
+        "Göğüs ağrısı (tipik veya atipik)",
+        "EKG'de ST elevasyonu/depresyonu veya yeni LBBB",
+        "Troponin artışı"
+      ],
+      "en": [
+        "Chest pain (typical or atypical)",
+        "ST elevation/depression or new LBBB on ECG",
+        "Troponin elevation"
+      ]
+    },
+    "short_info": {
+      "tr": "Akut myokard enfarktüsü, koroner arter tıkanmasına bağlı kalp kası nekrozudur.",
+      "en": "Acute myocardial infarction is necrosis of heart muscle due to coronary artery occlusion."
+    },
+    "pearl": {
+      "tr": "Tanı için troponin ve EKG birlikte değerlendirilmelidir.",
+      "en": "Diagnosis requires both troponin elevation and ECG changes."
+    },
+    "references": [
+      { "tr": "ESC 2023 Akut MI Kılavuzu", "en": "ESC 2023 Acute MI Guidelines" }
+    ]
+  },
+  {
+    "tr": "Hızlı ventrikül yanıtlı atriyal fibrilasyon",
+    "en": "Atrial fibrillation with rapid ventricular response",
+    "criteria": {
+      "tr": [
+        "Düzensiz düzensiz taşikardi (AF ritmi)",
+        "Ventrikül hızı >100/dk",
+        "EKG'de AF bulguları"
+      ],
+      "en": [
+        "Irregularly irregular tachycardia (AF rhythm)",
+        "Ventricular rate >100/min",
+        "AF findings on ECG"
+      ]
+    },
+    "short_info": {
+      "tr": "Hızlı ventrikül yanıtlı atriyal fibrilasyon, atriyal fibrilasyonun bir alt tipidir ve acil müdahale gerektirebilir.",
+      "en": "Atrial fibrillation with rapid ventricular response is a subtype of AF and may require urgent intervention."
+    },
+    "pearl": {
+      "tr": "Hız kontrolü önceliklidir.",
+      "en": "Rate control is the priority."
+    },
+    "references": [
+      { "tr": "ESC 2020 Atriyal Fibrilasyon Kılavuzu", "en": "ESC 2020 Atrial Fibrillation Guidelines" }
+    ]
+  },
+  {
+    "tr": "Metil alkol zehirlenmesi",
+    "en": "Methanol intoxication",
+    "criteria": {
+      "tr": [
+        "Metabolik asidoz (yüksek anyon gap)",
+        "Görme bozukluğu ('kar fırtınası' görünümü)",
+        "Kusma, karın ağrısı, bilinç değişikliği",
+        "Metanol öyküsü"
+      ],
+      "en": [
+        "Metabolic acidosis (high anion gap)",
+        "Visual disturbances ('snowstorm' appearance)",
+        "Vomiting, abdominal pain, altered consciousness",
+        "History of methanol ingestion"
+      ]
+    },
+    "short_info": {
+      "tr": "Metil alkol zehirlenmesi, ciddi metabolik asidoz ve kalıcı körlüğe yol açabilir.",
+      "en": "Methanol intoxication can cause severe metabolic acidosis and permanent blindness."
+    },
+    "pearl": {
+      "tr": "Fomepizol veya etanol tedavide kullanılır.",
+      "en": "Fomepizole or ethanol is used in treatment."
+    },
+    "references": [
+      { "tr": "Goldfrank's Toxicologic Emergencies, 11. baskı", "en": "Goldfrank's Toxicologic Emergencies, 11th edition" }
+    ]
+  }
+]

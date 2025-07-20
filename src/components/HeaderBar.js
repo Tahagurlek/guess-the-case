@@ -60,10 +60,10 @@ export default function HeaderBar({
     textAlign: "center",
     letterSpacing: 1,
     userSelect: "none",
-    fontSize: { xs: "1.2rem", sm: "1.6rem", md: "2rem" } // Mobilde küçük, tablette/pc'de büyük!
+    fontSize: { xs: "1.6rem", sm: "1.6rem", md: "2rem" } // Mobilde küçük, tablette/pc'de büyük!
   }}
 >
-  Guess The Case
+  Diagno
 </Typography>
 
           <IconButton color="inherit" onClick={onOpenLeaderboard}>

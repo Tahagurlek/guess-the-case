@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Dialog, DialogTitle, DialogContent, Typography, Box, Button, Snackbar } from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, Typography, Box, Button, Divider, Snackbar, Chip } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import QueryStatsIcon from "@mui/icons-material/QueryStats";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
 function getTodayStr() {
   const today = new Date();
@@ -13,7 +19,6 @@ export default function StatsDialog({ open, onClose, stats, lang }) {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [countdown, setCountdown] = useState("");
 
-  // Geri sayım güncelleyici
   useEffect(() => {
     if (!open) return;
     function updateCountdown() {
@@ -55,58 +60,108 @@ export default function StatsDialog({ open, onClose, stats, lang }) {
     setSnackbarOpen(true);
   };
 
-  // Geri sayım sadece bugünkü vaka çözülmüşse gösterilsin
   const todayStr = getTodayStr();
   const showCountdown = stats.lastDate === todayStr;
 
+  // İstatistik satırlarını badge/ikon ile ve net satır arasıyla gösteriyoruz.
+  const statsRows = [
+    {
+      icon: <DoneAllIcon sx={{ color: "#1976d2", fontSize: 22 }} />,
+      label: lang === "tr" ? "Çözülen vaka" : "Solved cases",
+      value: stats.total
+    },
+    {
+      icon: <EmojiEventsIcon sx={{ color: "#19c08a", fontSize: 22 }} />,
+      label: lang === "tr" ? "Doğru" : "Correct",
+      value: stats.correct
+    },
+    {
+      icon: <ErrorOutlineIcon sx={{ color: "#d32f2f", fontSize: 22 }} />,
+      label: lang === "tr" ? "Yanlış/Çözülemeyen" : "Incorrect/Failed",
+      value: stats.incorrect
+    },
+    {
+      icon: <QueryStatsIcon sx={{ color: "#fb8c00", fontSize: 22 }} />,
+      label: lang === "tr" ? "Ortalama puan" : "Avg. score",
+      value: stats.avgScore
+    },
+    {
+      icon: <TrendingUpIcon sx={{ color: "#673ab7", fontSize: 22 }} />,
+      label: lang === "tr" ? "Art arda gün" : "Streak",
+      value: stats.streak
+    },
+  ];
+
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>{lang === "tr" ? "Kişisel İstatistikler" : "Personal Stats"}</DialogTitle>
+      <DialogTitle sx={{ textAlign: "center", fontWeight: 700, pb: 1 }}>
+        {lang === "tr" ? "Kişisel İstatistikler" : "Personal Stats"}
+      </DialogTitle>
       <DialogContent>
-        <Typography>
-          {lang === "tr" ? "Çözülen vaka:" : "Solved cases:"} {stats.total}
-        </Typography>
-        <Typography>
-          {lang === "tr" ? "Doğru:" : "Correct:"} {stats.correct}
-        </Typography>
-        <Typography>
-          {lang === "tr" ? "Yanlış/Çözülemeyen:" : "Incorrect/Failed:"} {stats.incorrect}
-        </Typography>
-        <Typography>
-          {lang === "tr" ? "Ortalama puan:" : "Avg. score:"} {stats.avgScore}
-        </Typography>
-        <Typography>
-          {lang === "tr" ? "Art arda gün (Streak):" : "Streak:"} {stats.streak}
-        </Typography>
-        <Box sx={{ my: 2, display: "flex", justifyContent: "center" }}>
+        <Box sx={{ px: 1, pb: 1 }}>
+          {statsRows.map((row, i) => (
+            <Box key={row.label} sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1.3,
+              py: 1.1,
+              px: 1,
+              borderRadius: 2,
+              bgcolor: i % 2 === 0 ? "rgba(25, 118, 210, 0.04)" : "rgba(240,240,240,0.11)",
+              fontSize: "1.08rem",
+              mb: 0.3
+            }}>
+              {row.icon}
+              <Typography sx={{ flexGrow: 1 }}>{row.label}:</Typography>
+              <Chip label={row.value} color="primary" size="small" sx={{ fontWeight: 700, fontSize: "1.03em" }} />
+            </Box>
+          ))}
+        </Box>
+        <Divider sx={{ my: 1.5 }} />
+        <Box sx={{ my: 1.2, display: "flex", justifyContent: "center" }}>
           <Button
             variant="contained"
             startIcon={<ContentCopyIcon />}
             onClick={handleShare}
-            sx={{ fontWeight: 700 }}
+            sx={{
+              fontWeight: 700,
+              borderRadius: 2,
+              px: 3,
+              py: 1,
+              fontSize: "1.06rem",
+              letterSpacing: 0.3
+            }}
           >
             {lang === "tr" ? "Sonucumu Paylaş" : "Share My Result"}
           </Button>
         </Box>
         {showCountdown && countdown && (
-          <Typography
-            sx={{
-              mt: 2,
-              fontWeight: 600,
-              textAlign: "center",
-              color: "#1976d2",
-              letterSpacing: 1,
-              fontSize: "1.08rem"
-            }}
-          >
-            {lang === "tr"
-              ? `Sonraki Vaka: ${countdown}`
-              : `Next case in: ${countdown}`}
-          </Typography>
+          <Box sx={{
+            mt: 2,
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+            justifyContent: "center"
+          }}>
+            <AccessTimeIcon sx={{ color: "#1976d2", mb: 0.5 }} />
+            <Typography
+              sx={{
+                fontWeight: 600,
+                textAlign: "center",
+                color: "#1976d2",
+                letterSpacing: 1,
+                fontSize: "1.13rem"
+              }}
+            >
+              {lang === "tr"
+                ? `Sonraki Vaka: ${countdown}`
+                : `Next case in: ${countdown}`}
+            </Typography>
+          </Box>
         )}
         <Snackbar
           open={snackbarOpen}
-          autoHideDuration={2000}
+          autoHideDuration={1800}
           onClose={() => setSnackbarOpen(false)}
           message={lang === "tr" ? "Panoya kopyalandı!" : "Copied to clipboard!"}
         />

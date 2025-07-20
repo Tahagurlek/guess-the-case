@@ -17,6 +17,9 @@ import { motion } from "framer-motion";
 import { Autocomplete, TextField } from "@mui/material";
 import DiagnosisSelect from "./components/DiagnosisSelect";
 import DiagnosisSelectVirtual from "./components/DiagnosisSelectVirtual";
+import diagnosisExplanations from "./data/diagnosisExplanation.json";
+import ResultCard from "./components/ResultCard";
+import AppFooter from "./components/AppFooter";
 // stepler
 import StepHistory from "./components/steps/StepHistory";
 import StepBackground from "./components/steps/StepBackground";
@@ -25,6 +28,10 @@ import StepFastTest from "./components/steps/StepFastTest";
 import StepLab from "./components/steps/StepLab";
 import StepImaging from "./components/steps/StepImaging";
 import StepCourse from "./components/steps/StepCourse";
+
+import { Accordion, AccordionSummary, AccordionDetails} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import InfoIcon from "@mui/icons-material/Info";
 
 // Step componentleri eşleştiriliyor
 const stepComponents = {
@@ -187,6 +194,10 @@ export default function App() {
 
   const steps = selectedVaka.steps || [];
   const totalStepCount = steps.length;
+  const matchedDiagnosisDetail = diagnosisExplanations.find(tani =>
+    tani[lang] === selectedVaka.correct_diagnosis[lang]
+);
+  
 
   useEffect(() => {
     const solved = getSolvedCases();
@@ -497,38 +508,13 @@ export default function App() {
 </Box>
 
             {/* Sonuç ve açıklama */}
-            {result && (
-              <Box
-                sx={{
-    mt: 3,
-    p: 2,
-    borderRadius: 3,
-    background: result.success
-      ? (darkMode ? "#284d32" : "#e3ffe1")
-      : (darkMode ? "#422626" : "#ffeaea"),
-    color: result.success
-      ? (darkMode ? "#bbffbb" : "#2e7d32")
-      : (darkMode ? "#ffbdbd" : "#c62828"),
-    boxShadow: "0 2px 8px #cfcfcf33",
-    fontWeight: 700,
-    fontSize: "1.07rem",
-    textAlign: "center"
-  }}
-              >
-                <Typography sx={{ fontWeight: 700 }}>{result.message}</Typography>
-                {result.success && (
-                  <>
-                    <Typography sx={{ mt: 1 }}>
-                      <b>{lang === "tr" ? "Açıklama" : "Explanation"}:</b> {selectedVaka.explanation[lang]}
-                    </Typography>
-                    <Typography>
-                      <b>{lang === "tr" ? "Kaynak" : "Reference"}:</b>{" "}
-                      {selectedVaka.references.map(r => r[lang]).join(", ")}
-                    </Typography>
-                  </>
-                )}
-              </Box>
-            )}
+            <ResultCard
+  result={result}
+  selectedVaka={selectedVaka}
+  diagnosisDetail={matchedDiagnosisDetail}
+  lang={lang}
+/>
+<AppFooter />
           </CardContent>
         </Card>
 
