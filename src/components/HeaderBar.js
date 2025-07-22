@@ -11,12 +11,13 @@ import LanguageIcon from '@mui/icons-material/Language';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
+import logo from "../assets/diagno-logo.png";
 
 export default function HeaderBar({
   lang, setLang,
   darkMode, setDarkMode,
   onOpenArchive, onOpenStats,onOpenLeaderboard,
-  onOpenProfile, onOpenHelp
+  onOpenProfile, onOpenHelp,statsButtonRef
 }) {
   // Sol Drawer için state
   const [drawerOpen, setDrawerOpen] = React.useState(false);
@@ -38,44 +39,62 @@ export default function HeaderBar({
       : "linear-gradient(90deg, #f6fbff 60%, #fffde7 100%)"
   }}
 >
-        <Toolbar sx={{ minHeight: 64 }}>
-          {/* Sol: Menü ikonu */}
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            onClick={() => setDrawerOpen(true)}
-            aria-label="menu"
-            sx={{ mr: 1 }}
-          >
-            <MenuIcon />
-          </IconButton>
+       <Toolbar sx={{ minHeight: 64, justifyContent: "space-between" }}>
+  {/* Sol: Menü ikonu */}
+  <IconButton
+    size="large"
+    edge="start"
+    color="inherit"
+    onClick={() => setDrawerOpen(true)}
+    aria-label="menu"
+    sx={{ mr: 1 }}
+  >
+    <MenuIcon />
+  </IconButton>
 
-          {/* Orta: Uygulama Adı */}
-          <Typography
-  variant="h5"
-  sx={{
-    flex: 1,
-    fontWeight: 800,
-    textAlign: "center",
-    letterSpacing: 1,
-    userSelect: "none",
-    fontSize: { xs: "1.6rem", sm: "1.6rem", md: "2rem" } // Mobilde küçük, tablette/pc'de büyük!
-  }}
->
-  Diagno
-</Typography>
+  {/* Ortada: Logo + Başlık */}
+  <Box sx={{
+    display: "flex",
+    alignItems: "center",
+    mx: "auto"  // Ortalamayı kolaylaştırır
+  }}>
+    <img
+      src={logo}
+      alt="Diagno"
+      style={{
+        width: 32,
+        height: 32,
+        marginRight: 10,
+        objectFit: "contain",
+        verticalAlign: "middle"
+      }}
+    />
+    <Typography
+      variant="h5"
+      sx={{
+        fontWeight: 800,
+        letterSpacing: 1,
+        userSelect: "none",
+        fontSize: { xs: "1.25rem", sm: "1.6rem", md: "2rem" }
+      }}
+    >
+      Diagno
+    </Typography>
+  </Box>
 
-          <IconButton color="inherit" onClick={onOpenLeaderboard}>
-          <LeaderboardIcon />
-          </IconButton>
-          <IconButton color="inherit" onClick={onOpenHelp}>
-          <HelpOutlineIcon />
-          </IconButton>
-          <IconButton color="inherit" onClick={openSettings}>
-            <SettingsIcon />
-          </IconButton>
-        </Toolbar>
+  {/* Sağda kalan ikonlar */}
+  <Box>
+    <IconButton color="inherit" onClick={onOpenLeaderboard}>
+      <LeaderboardIcon />
+    </IconButton>
+    <IconButton color="inherit" onClick={onOpenHelp}>
+      <HelpOutlineIcon />
+    </IconButton>
+    <IconButton color="inherit" onClick={openSettings}>
+      <SettingsIcon />
+    </IconButton>
+  </Box>
+</Toolbar>
       </AppBar>
 
       {/* Sol Drawer (Menü) */}
@@ -92,9 +111,12 @@ export default function HeaderBar({
     </ListItemButton>
   </ListItem>
   <ListItem disablePadding>
-    <ListItemButton onClick={() => { setDrawerOpen(false); onOpenStats(); }}>
-      <ListItemText primary={lang === "tr" ? "İstatistiklerim" : "My Stats"} />
-    </ListItemButton>
+    <ListItemButton
+  ref={statsButtonRef}
+  onClick={() => { setDrawerOpen(false); onOpenStats(); }}
+>
+  <ListItemText primary={lang === "tr" ? "İstatistiklerim" : "My Stats"} />
+</ListItemButton>
   </ListItem>
   <ListItem disablePadding>
     <ListItemButton onClick={() => { setDrawerOpen(false); if (typeof onOpenProfile === "function") onOpenProfile(); }}>

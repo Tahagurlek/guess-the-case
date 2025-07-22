@@ -345,7 +345,7 @@
     ]
   },
 {
-  "date": "2025-07-19",
+  "date": "2025-07-22",
   "demographics": { "age": 41, "sex": { "tr": "Erkek", "en": "Male" } },
   "chief_complaint": { "tr": "Çarpıntı", "en": "Palpitations" },
   "steps": [
@@ -480,7 +480,7 @@
   ]
 },
 {
-  "date": "2025-07-20",
+  "date": "2025-07-23",
   "demographics": { "age": 59, "sex": { "tr": "Kadın", "en": "Female" } },
   "chief_complaint": { "tr": "Bilinç bulanıklığı", "en": "Altered mental status" },
   "steps": [
@@ -491,7 +491,7 @@
     },
     {
       "key": "background",
-      "label": { "tr": "Özgeçmiş, Alışkanlık, İlaç, Soygeçmiş", "en": "Background, Habits, Medications, Family" },
+      "label": { "tr": "Ek Bilgiler", "en": "Additional Info" },
       "penalty": 10
     },
     {

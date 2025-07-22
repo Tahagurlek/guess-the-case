@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useRef,useState, useMemo, useEffect } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Box, Card, CardContent, Typography, Button } from "@mui/material";
@@ -180,6 +180,7 @@ export default function App() {
   const [profileOpen, setProfileOpen] = useState(false);
   const [leaderboardOpen, setLeaderboardOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
+  const statsButtonRef = useRef();
 
   const todayVaka = useMemo(getTodayOrClosestCase, []);
   const [selectedVaka, setSelectedVaka] = useState(todayVaka);
@@ -345,7 +346,13 @@ export default function App() {
           darkMode={darkMode}
           setDarkMode={setDarkMode}
           onOpenArchive={() => setArchiveOpen(true)}
-          onOpenStats={() => setStatsOpen(true)}
+          onOpenStats={() => {
+      setStatsOpen(true);
+      setTimeout(() => {
+        // Modal açıldıktan sonra focus stats dialog'a kayıyor zaten
+      }, 100);
+    }}
+    statsButtonRef={statsButtonRef}  // Bunu aşağıda HeaderBar'da kullanmak için
           onOpenProfile={() => setProfileOpen(true)}
           onOpenLeaderboard={() => setLeaderboardOpen(true)}
           onOpenHelp={() => setHelpOpen(true)}
@@ -358,34 +365,43 @@ export default function App() {
   maxWidth: 680,
   margin: "0 auto"
 }}>
-          <CardContent sx={{ p: { xs: 2, sm: 4 } }}>
-            {/* Günün vakası rozeti */}
-            {selectedVaka.date === todayVaka.date && (
-              <Box sx={{
-  display: "inline-flex",
-  alignItems: "center",
-  gap: 1,
-  mb: 2,
-  px: 2.5,
-  py: 0.8,
-  borderRadius: 7,
-  fontWeight: 800,
-  fontSize: "1.08rem",
-  color: "#fff",
-  background: "linear-gradient(90deg, #1976d2 30%, #90caf9 100%)",
-  boxShadow: "0 2px 12px #90caf955"
-}}>
-  <StarIcon sx={{ fontSize: 21, mr: 0.7, color: "#ffd600" }} />
-  {lang === "tr" ? "GÜNÜN VAKASI" : "CASE OF THE DAY"}
-</Box>
-            )}
+         <CardContent sx={{ p: { xs: 2, sm: 4 } }}>
+  <Box sx={{ mb: 2, textAlign: "center" }}>
+    {/* Günün vakası rozeti */}
+    {selectedVaka.date === todayVaka.date && (
+      <Box sx={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 1,
+        mb: 1,
+        px: 2.5,
+        py: 0.8,
+        borderRadius: 3,
+        fontWeight: 800,
+        fontSize: "1.08rem",
+        color: "#fff",
+        background: "linear-gradient(90deg, #1976d2 30%, #90caf9 100%)",
+        boxShadow: "0 2px 12px #90caf955"
+      }}>
+        <StarIcon sx={{ fontSize: 21, mr: 0.7, color: "#ffd600" }} />
+        {lang === "tr" ? "GÜNÜN VAKASI" : "CASE OF THE DAY"}
+      </Box>
+    )}
 
-            {/* Sonuç info mesajı */}
-            <SolvedInfo />
-
-            <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, fontSize: "1.35rem" }}>
-              {lang === "tr" ? "Vaka" : "Case"} ({selectedVaka.date})
-            </Typography>
+    {/* Tarih */}
+    <Typography
+      sx={{
+        fontWeight: 600,
+        color: "#90a4ae",
+        fontSize: { xs: "1.07rem", sm: "1.11rem" },
+        letterSpacing: 0.09,
+        mt: 0.7,
+        mb: 0.1
+      }}
+    >
+      {selectedVaka.date.replace(/-/g, ".")}
+    </Typography>
+  </Box>
 
             <DemographicsCard selectedVaka={selectedVaka} lang={lang} vitals={selectedVaka.vitals?.[lang]} />
 
@@ -409,9 +425,9 @@ export default function App() {
                 color="secondary"
                 sx={{
     width: "100%",
-    my: 2, px: 4, py: 1.3,
+    my: 2, px: 3, py: 1.5,
     fontWeight: 700,
-    fontSize: "1.09rem",
+    fontSize: "1.0rem",
     borderRadius: 3.5,
     background: "linear-gradient(90deg, #fff9c4 60%, #ffe082 100%)",
     color: "#424242",
@@ -441,14 +457,14 @@ export default function App() {
   fontWeight: 500,
   fontSize: "1.07rem"
 }}>
-  <span>🟡</span>
-  <Typography>
+  <span>❤️</span>
+  <Typography variant="body1" sx={{ fontSize: "1.08rem", fontWeight: 600 }}>
     {lang === "tr"
       ? `Kalan hak: ${remainingTries}/${MAX_TRIES}`
       : `Remaining tries: ${remainingTries}/${MAX_TRIES}`}
   </Typography>
   <span>⭐</span>
-  <Typography variant="h6" sx={{ my: 0 }}>
+  <Typography variant="body1" sx={{ fontSize: "1.08rem", fontWeight: 600 }}>
     {lang === "tr" ? "Puan" : "Score"}: {score}
   </Typography>
 </Box>
@@ -529,11 +545,15 @@ export default function App() {
           todayVaka={todayVaka}
         />
         <StatsDialog
-          open={statsOpen}
-          onClose={() => setStatsOpen(false)}
-          stats={getStats()}
-          lang={lang}
-        />
+    open={statsOpen}
+    onClose={() => {
+      setStatsOpen(false);
+      // Modal kapanınca ana stats butonuna focus ver!
+      statsButtonRef.current?.focus();
+    }}
+    stats={getStats()}
+    lang={lang}
+  />
         <ProfileDialog
           open={profileOpen}
           onClose={() => setProfileOpen(false)}

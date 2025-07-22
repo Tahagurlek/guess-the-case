@@ -41,7 +41,7 @@ export default function InfoStepCard({ item, idx, lang }) {
     >
       <span style={{ marginTop: 4, flexShrink: 0 }}>{icons[idx % icons.length]}</span>
       <Box>
-        <Typography sx={{ fontWeight: 700, fontSize: "1.13rem", mb: 1, letterSpacing: 0.1 }}>
+        <Typography sx={{ fontWeight: 700, fontSize: "1.2rem", mb: 1, letterSpacing: 0.1 }}>
           {item.label[lang]}
         </Typography>
         <div style={{ fontSize: "1.04rem", lineHeight: 1.7 }}>{item.value}</div>
